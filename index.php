@@ -1,5 +1,10 @@
 <?php
+  require 'configuration.php';
+  require 'database.php';
 
+  var_dump("server" . SERVERNAME);
+
+  var_dump(database::getCategories(2));
 ?>
 <!doctype html>
 <html lang="en">
