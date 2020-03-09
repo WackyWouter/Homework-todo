@@ -1,10 +1,10 @@
 <?php
-  require 'configuration.php';
-  require 'database.php';
+  // require 'configuration.php';
+  // require 'database.php';
 
-  var_dump("server" . SERVERNAME);
+  // var_dump("server" . SERVERNAME);
 
-  var_dump(database::getCategories(2));
+  // var_dump(database::getCategories(2));
 ?>
 <!doctype html>
 <html lang="en">
@@ -17,13 +17,37 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>Hello, world!</title>
+    <title>Homework TODO</title>
   </head>
   <body>
-    <div class="alert alert-primary" role="alert">
-        A simple primary alert—check it out!
+    <div class="container-fluid p-0">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand">Homework TODO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">New</a>
+            </li>
+          </ul>
+        </div>
+        
+        <form class="form-inline">
+          <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
+        </form>
+      </nav>
     </div>
-    <h1>Hello, world!</h1>
+
+    <div class=".container-lg">
+
+    </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
