@@ -30,22 +30,40 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-              <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#">Overview <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">New</a>
+            <li class="nav-item ">
+              <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                New
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Category</a>
+                <a class="dropdown-item" href="#">Task</a>
+              </div>
+            </li>
+            <li>
+              
             </li>
           </ul>
-        </div>
-        
-        <form class="form-inline">
-          <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
-        </form>
+          <div class="form-inline ">
+                <p id="currentDate" class="navbar-nav mr-4" style="color: rgba(255,255,255,.75)">Date</p>
+          </div>
+          <form class="form-inline">
+            <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
+          </form>
+        </div>      
       </nav>
     </div>
 
-    <div class=".container-lg">
+    <div class="container">
+      <div class="row justify-content-center">;
+        <div class="col-8">
 
+        </div>
+      </div>
     </div>
 
 
@@ -54,6 +72,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="js/date.js"></script>
   </body>
 </html>
 
