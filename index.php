@@ -82,14 +82,15 @@
       </div>
 
       <!-- TODO PARTS -->
-      <div class="row justify-content-center mt-4">
+      <div class="row justify-content-center mt-5">
         <div class="col-10">
           <h4 style="color:white">TODO</h4>
         </div>
       </div>
 
-      <div class="row justify-content-center mt-2">
+      <div class="row justify-content-center mt-4">
         <div class="col-10">
+          
           <div class="row justify-content-between blackBg p-3">
             <div class="col-4 neonRed font-weight-bold fontSizeM" >
               Days left: <?php echo $daysleft ?>
@@ -98,23 +99,127 @@
               <?php echo $currentDate ?>
             </div>
           </div>
+          
+          <div class="row justify-content-center">
+            <div class="col-12  pr-1 pl-1">
+              <div class="col-12 ">
+              <table class="table table-dark blackBg table-borderless table-hover">
+                <thead >
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Course</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Done</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr >
+                    <td>Presenteren</td>
+                    <td>Presentatie over logica</td>
+                    <td>IKLO</td>
+                    <td>LOW</td>
+                    <td><div class="btn btn-danger">Done<div></td>
+                  </tr>
+                  <tr>
+                    <td>Presenteren</td>
+                    <td>Presentatie over logica</td>
+                    <td>IKLO</td>
+                    <td>LOW</td>
+                    <td><div class="btn btn-danger">Done<div></td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row justify-content-center mt-4">
+        <div class="col-10">
+          
+          <div class="row justify-content-between blackBg p-3">
+            <div class="col-4 neonRed font-weight-bold fontSizeM" >
+              Days left: <?php echo $daysleft ?>
+            </div>
+            <div class="col-4 whiteText text-right fontSizeM">
+              <?php echo $currentDate ?>
+            </div>
+          </div>
+          
+          <div class="row justify-content-center">
+            <div class="col-12  pr-1 pl-1">
+              <div class="col-12 ">
+              <table class="table table-dark blackBg table-borderless table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Course</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Done</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Presenteren</td>
+                    <td>Presentatie over logica</td>
+                    <td>IKLO</td>
+                    <td>LOW</td>
+                    <td><div class="btn btn-danger">Done<div></td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
       <!-- DONE PARTS -->
-      <div class="row justify-content-center mt-4">
+      <div class="row justify-content-center mt-5">
         <div class="col-10">
           <h4 style="color:white">DONE</h4>
         </div>
       </div>
 
-      <div class="row justify-content-center mt-2">
+      <div class="row justify-content-center mt-4">
         <div class="col-10">
           <div class="row justify-content-between blackBg p-3">
             <div class="col-4 neonGreen font-weight-bold fontSizeM" >
               Amount done: <?php echo $amountDone ?>
             </div>
 
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-12  pr-1 pl-1">
+              <div class="col-12 ">
+              <table class="table table-dark blackBg table-borderless table-hover">
+                <thead >
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Course</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Finished</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Presenteren</td>
+                    <td>Presentatie over logica</td>
+                    <td>IKLO</td>
+                    <td>LOW</td>
+                    <td><?php echo $currentDate ?></td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
