@@ -3,10 +3,11 @@ html{
 }
 
 body{
-    background-image:url('../bg.jpg');
+    background-image:url('../img/bg.jpg');
     background-repeat:no-repeat;
     background-size:cover;
     background-position:center;
+    background-attachment: fixed;
 }
 .blackBg{
     background-color: black !important;
@@ -29,5 +30,6 @@ body{
 .fontSizeM{
     font-size: 18px;
 }
+
 
 
