@@ -27,8 +27,8 @@
   </head>
   <body>
     <div class="container-fluid p-0">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
-        <a class="navbar-brand">Homework TODO</a>
+      <nav class="navbar navbar-expand-lg navbar-dark greyBg justify-content-between">
+        <a class="navbar-brand" href="index.php">Homework TODO</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,18 +36,18 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-              <a class="nav-link" href="#">Overview <span class="sr-only">(current)</span></a>
+              <a class="nav-link whiteText" href="#">Overview <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" href="#">Profile</a>
+              <a class="nav-link" href="profile.php">Profile</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 New
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Category</a>
-                <a class="dropdown-item" href="#">Task</a>
+                <a class="dropdown-item" href="newCategory.php">Category</a>
+                <a class="dropdown-item" href="newTask.php">Task</a>
               </div>
             </li>
             <li>
@@ -64,7 +64,7 @@
       </nav>
     </div>
 
-    <div class="container-fluid mt-4">
+    <div class="container-fluid mt-4 mb-5">
       <div class="row justify-content-center">
         <div class="col-10">
 
@@ -84,14 +84,14 @@
       <!-- TODO PARTS -->
       <div class="row justify-content-center mt-5">
         <div class="col-10">
-          <h4 style="color:white">TODO</h4>
+          <h5 class="whiteText">TODO</h5>
         </div>
       </div>
 
       <div class="row justify-content-center mt-4">
-        <div class="col-10">
+        <div class="col-10 greyBg">
           
-          <div class="row justify-content-between blackBg p-3">
+          <div class="row justify-content-between pt-3 pb-2 pr-2 pl-2">
             <div class="col-4 neonRed font-weight-bold fontSizeM" >
               Days left: <?php echo $daysleft ?>
             </div>
@@ -100,13 +100,14 @@
             </div>
           </div>
           
+          <hr/>
+
           <div class="row justify-content-center">
-            <div class="col-12  pr-1 pl-1">
-              <div class="col-12 ">
-              <table class="table table-dark blackBg table-borderless table-hover">
+            <div class="col-12 pb-2 pl-2 pr-2">
+              <table class="table table-dark greyBg table-borderless table-hover mb-2">
                 <thead >
                   <tr>
-                    <th scope="col">Name</th>
+                    <th scope="col" class="pl-3">Name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Course</th>
                     <th scope="col">Priority</th>
@@ -115,22 +116,21 @@
                 </thead>
                 <tbody>
                   <tr >
-                    <td>Presenteren</td>
-                    <td>Presentatie over logica</td>
-                    <td>IKLO</td>
-                    <td>LOW</td>
+                    <td class="pl-3 align-middle">Presenteren</td>
+                    <td class="align-middle">Presentatie over logica</td>
+                    <td class="align-middle">IKLO</td>
+                    <td class="align-middle">LOW</td>
                     <td><div class="btn btn-danger">Done<div></td>
                   </tr>
                   <tr>
-                    <td>Presenteren</td>
-                    <td>Presentatie over logica</td>
-                    <td>IKLO</td>
-                    <td>LOW</td>
+                    <td class="pl-3 align-middle">Presenteren</td>
+                    <td class="align-middle">Presentatie over logica</td>
+                    <td class="align-middle">IKLO</td>
+                    <td class="align-middle">LOW</td>
                     <td><div class="btn btn-danger">Done<div></td>
                   </tr>
                 </tbody>
               </table>
-              </div>
             </div>
           </div>
 
@@ -138,9 +138,9 @@
       </div>
 
       <div class="row justify-content-center mt-4">
-        <div class="col-10">
+        <div class="col-10 greyBg">
           
-          <div class="row justify-content-between blackBg p-3">
+          <div class="row justify-content-between pt-3 pb-2 pr-2 pl-2">
             <div class="col-4 neonRed font-weight-bold fontSizeM" >
               Days left: <?php echo $daysleft ?>
             </div>
@@ -149,13 +149,14 @@
             </div>
           </div>
           
+          <hr/>
+          
           <div class="row justify-content-center">
-            <div class="col-12  pr-1 pl-1">
-              <div class="col-12 ">
-              <table class="table table-dark blackBg table-borderless table-hover">
+            <div class="col-12 pb-2 pl-2 pr-2">
+              <table class="table table-dark greyBg table-borderless table-hover mb-2">
                 <thead>
                   <tr>
-                    <th scope="col">Name</th>
+                    <th scope="col" class="pl-3">Name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Course</th>
                     <th scope="col">Priority</th>
@@ -164,15 +165,14 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Presenteren</td>
-                    <td>Presentatie over logica</td>
-                    <td>IKLO</td>
-                    <td>LOW</td>
+                    <td class="pl-3 align-middle">Presenteren</td>
+                    <td class="align-middle">Presentatie over logica</td>
+                    <td class="align-middle">IKLO</td>
+                    <td class="align-middle">LOW</td>
                     <td><div class="btn btn-danger">Done<div></td>
                   </tr>
                 </tbody>
               </table>
-              </div>
             </div>
           </div>
 
@@ -182,26 +182,26 @@
       <!-- DONE PARTS -->
       <div class="row justify-content-center mt-5">
         <div class="col-10">
-          <h4 style="color:white">DONE</h4>
+          <h5 class="whiteText">DONE</h5>
         </div>
       </div>
 
       <div class="row justify-content-center mt-4">
-        <div class="col-10">
-          <div class="row justify-content-between blackBg p-3">
+        <div class="col-10 greyBg">
+          <div class="row justify-content-between pt-3 pb-2 pr-2 pl-2">
             <div class="col-4 neonGreen font-weight-bold fontSizeM" >
               Amount done: <?php echo $amountDone ?>
             </div>
-
           </div>
 
+          <hr id="greenTop"/>
+
           <div class="row justify-content-center">
-            <div class="col-12  pr-1 pl-1">
-              <div class="col-12 ">
-              <table class="table table-dark blackBg table-borderless table-hover">
+            <div class="col-12 pb-2 pl-2 pr-2">
+              <table class="table table-dark greyBg table-borderless table-hover mb-2">
                 <thead >
                   <tr>
-                    <th scope="col">Name</th>
+                    <th scope="col" class="pl-3">Name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Course</th>
                     <th scope="col">Priority</th>
@@ -210,15 +210,14 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Presenteren</td>
-                    <td>Presentatie over logica</td>
-                    <td>IKLO</td>
-                    <td>LOW</td>
+                    <td class="pl-3 align-middle">Presenteren</td>
+                    <td class="align-middle">Presentatie over logica</td>
+                    <td class="align-middle">IKLO</td>
+                    <td class="align-middle">LOW</td>
                     <td><?php echo $currentDate ?></td>
                   </tr>
                 </tbody>
               </table>
-              </div>
             </div>
           </div>
         </div>
