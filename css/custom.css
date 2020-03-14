@@ -8,8 +8,26 @@ body{
     background-size:cover;
     background-position:center;
 }
+.blackBg{
+    background-color: black !important;
+}
+.neonRed{
+    color: #FE0019 !important;
+}
+.neonGreen{
+    color: #00ff11 !important;
+}
+.whiteText{
+    color: white !important;
+}
+
 
 .bg-dark{
     background-color: black !important;
 }
+
+.fontSizeM{
+    font-size: 18px;
+}
+
 
