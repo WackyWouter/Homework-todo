@@ -34,6 +34,48 @@ class database{
         echo "Connected successfully";
     }
 
+    public static function getUser($username, $password){
+        if(!isset($username)){
+            die("Error: " . "category_id unset");
+            //TODO make this go to log function
+        }
+
+        if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
+            // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
+            $stmt->bind_param('s', $username);
+            $stmt->execute();
+            // Store the result so we can check if the account exists in the database.
+            $stmt->store_result();
+        
+        
+            $stmt->close();
+
+            if ($stmt->num_rows > 0) {
+                $stmt->bind_result($id, $passwordDB);
+                $stmt->fetch();
+                // Account exists, now we verify the password.
+                // Note: remember to use password_hash in your registration file to store the hashed passwords.
+                if (password_verify($password, $passwordDB)) {
+                    // Verification success! User has loggedin!
+                    // Create sessions so we know the user is logged in, they basically act like cookies but remember the data on the server.
+                    session_regenerate_id();
+                    $_SESSION['loggedin'] = TRUE;
+                    $_SESSION['name'] = $username;
+                    $_SESSION['id'] = $id;
+                    return 'Welcome ' . $_SESSION['name'] . '!';
+                } else {
+                    return 'Incorrect password or username!';
+                }
+            } else {
+                return 'Incorrect password or username!';
+            }
+        } else{
+            return 'Incorrect password or username!';
+        }
+    }
+
+    
+
     public static function getHomework($user_id, $category_id){
         if(!self::$connection){
             self::connection();
