@@ -31,8 +31,37 @@ class database{
             //TODO make this go to log function
         }
         self::$connection = true;
-        echo "Connected successfully";
     }
+
+    public static function getUser($username, $password){
+        if(!isset($username)){
+            die("Error: " . "username unset");
+            //TODO make this go to log function
+        }
+
+        if ($stmt = self::$conn->prepare('SELECT id, password FROM users WHERE username = ?')) {
+            $stmt->bind_param('s', $username);
+            $stmt->execute();
+            $stmt->store_result();
+        
+            if ($stmt->num_rows > 0) {
+                $stmt->bind_result($id, $passwordDB);
+                $stmt->fetch();
+               if (password_verify($password, $passwordDB)) {
+                    session_regenerate_id();
+                    $_SESSION['loggedin'] = TRUE;
+                    $_SESSION['name'] = $username;
+                    $_SESSION['id'] = $id;
+                    $stmt->close();
+                    return true;
+                } 
+            }            
+        }
+        $stmt->close();
+        return false;
+    }
+
+    
 
     public static function getHomework($user_id, $category_id){
         if(!self::$connection){

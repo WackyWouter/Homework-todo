@@ -1,4 +1,13 @@
 <?php
+
+  // We need to use sessions, so you should always start sessions using the below code.
+  session_start();
+  // If the user is not logged in redirect to the login page...
+  if (!isset($_SESSION['loggedin'])) {
+    header('Location: index.html');
+    exit;
+  }
+
   // require 'configuration.php';
   // require 'database.php';
   // var_dump("server" . SERVERNAME);
@@ -18,6 +27,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="img/iconR.png">
+    <title>Home</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -28,7 +39,7 @@
   <body>
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg navbar-dark greyBg justify-content-between">
-        <a class="navbar-brand" href="index.php">Homework TODO</a>
+        <a class="navbar-brand" href="home.php">Homework TODO</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,7 +68,7 @@
           <div class="form-inline ">
                 <p id="currentDate" class="navbar-nav mr-4" style="color: rgba(255,255,255,.75)"><?php echo $currentDate ?></p>
           </div>
-          <form class="form-inline">
+          <form action="logout.php" class="form-inline">
             <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
           </form>
         </div>      
