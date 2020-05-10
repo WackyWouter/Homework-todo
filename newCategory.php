@@ -57,7 +57,7 @@
           <div class="form-inline ">
                 <p id="currentDate" class="navbar-nav mr-4" style="color: rgba(255,255,255,.75)"><?php echo $currentDate ?></p>
           </div>
-          <form class="form-inline">
+          <form  action="logout.php" class="form-inline">
             <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
           </form>
         </div>      
