@@ -12,4 +12,8 @@ if ( !isset($_POST['username'], $_POST['password']) ) {
 	exit('Please fill both the username and password fields!');
 }
 
-echo database::getUser($_POST['username'], $_POST['password']);
+if(database::getUser($_POST['username'], $_POST['password'])){
+	header('Location: home.php');
+}else{
+	echo "failed";
+}
