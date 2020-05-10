@@ -31,12 +31,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>Homework TODO</title>
+    <title>New Category</title>
+    <link rel="icon" href="img/iconR.png">
   </head>
   <body>
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg navbar-dark greyBg justify-content-between">
-        <a class="navbar-brand" href="index.php">Homework TODO</a>
+        <a class="navbar-brand" href="home.php">Homework TODO</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -44,7 +45,7 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-              <a class="nav-link" href="index.php">Overview <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="home.php">Overview <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item ">
               <a class="nav-link" href="profile.php">Profile</a>
