@@ -9,7 +9,7 @@
   }
 
   // require 'configuration.php';
-  // require 'database.php';
+  // require 'php-con/database.php';
   // var_dump("server" . SERVERNAME);
   // var_dump(database::getCategories(2));
 
@@ -67,7 +67,7 @@
           <div class="form-inline ">
                 <p id="currentDate" class="navbar-nav mr-4" style="color: rgba(255,255,255,.75)"><?php echo $currentDate ?></p>
           </div>
-          <form  action="logout.php" class="form-inline">
+          <form  action="phpCon/logout.php" class="form-inline">
             <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
           </form>
         </div>      

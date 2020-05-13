@@ -1,9 +1,10 @@
 <?php
+require __DIR__ . '/../configuration.php';
 
 class database{
 
     public static $conn = "";
-    private static $connection = false;
+    public static $connection = false;
 
     public static function connection(){
         if(!defined("DATABASE")){
@@ -34,6 +35,10 @@ class database{
     }
 
     public static function getUser($username, $password){
+        if(!self::$connection){
+            self::connection();
+        }
+
         if(!isset($username)){
             die("Error: " . "username unset");
             //TODO make this go to log function
@@ -43,6 +48,10 @@ class database{
             $stmt->bind_param('s', $username);
             $stmt->execute();
             $stmt->store_result();
+
+            $id = 0;
+            $passwordDB = '';
+
         
             if ($stmt->num_rows > 0) {
                 $stmt->bind_result($id, $passwordDB);
@@ -109,83 +118,7 @@ class database{
         return json_encode(['status' => 'ok', 'result' => $result]);
     }
 
-    public static function addHomework($homework, $user_id, $category_id){
-        if(!isset($category_id)){
-            die("Error: " . "category_id unset");
-            //TODO make this go to log function
-        }
-        if(!isset($user_id)){
-            die("Error: " . "user_id unset");
-            //TODO make this go to log function
-        }
-        if(!isset($homework->name)){
-            die("Error: " . "name unset");
-            //TODO make this go to log function
-        }
-        if(!isset($homework->description)){
-            die("Error: " . "description unset");
-            //TODO make this go to log function
-        }
-        if(!isset($homework->duedate)){
-            die("Error: " . "duedate unset");
-            //TODO make this go to log function
-        }
-        if(!isset($homework->course)){
-            die("Error: " . "course unset");
-            //TODO make this go to log function
-        }
-        if(!isset($homework->priority)){
-            die("Error: " . "priority unset");
-            //TODO make this go to log function
-        }
-
-        $stmt = self::$conn->prepare("INSERT INTO homework(user_id, name, description, duedate, course, category_id, priority) VALUES(?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('issssis', $user_id, $homework->name, $homework->description, $homework->duedate, $homework->course, $category_id, $homework->priority);
-        $stmt->execute();
-        $stmt->close();
-
-        // maybe return the added item
-        return json_encode(['status', 'ok']);
-    }
-
-    public static function addCategory($category, $user_id){
-        if(!isset($category)){
-            die("Error: " . "category unset");
-            //TODO make this go to log function
-        }
-        if(!isset($user_id)){
-            die("Error: " . "user_id unset");
-            //TODO make this go to log function
-        }
-
-        $stmt = self::$conn->prepare("INSERT INTO category(name, user_id) VALUES(?, ?)");
-        $stmt->bind_param('si', $category, $user_id);
-        $stmt->execute();
-        $stmt->close();
-
-        // maybe return the added item
-        return json_encode(['status', 'ok']);
-    }
-
-    public static function addUser($user){
-        if(!isset($user->username)){
-            die("Error: " . "username unset");
-            //TODO make this go to log function
-        }
-        if(!isset($user->password)){
-            die("Error: " . "password unset");
-            //TODO make this go to log function
-        }
-
-        $stmt = self::$conn->prepare("INSERT INTO user(username, password) VALUES(?, ?)");
-        $stmt->bind_param('ss', $user->username, $user->password);
-        $stmt->execute();
-        $stmt->close();
-
-        // maybe return the added item
-        return json_encode(['status', 'ok']);
-    }
-
+   
     public static function editHomework($id, $homework){
         if(!isset($id)){
             die("Error: " . "id unset");
