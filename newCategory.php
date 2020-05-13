@@ -1,23 +1,33 @@
 <?php
+  require 'phpCon/create.php';
 
-  // We need to use sessions, so you should always start sessions using the below code.
   session_start();
-  // If the user is not logged in redirect to the login page...
+
   if (!isset($_SESSION['loggedin'])) {
     header('Location: index.html');
     exit;
   }
-  // require 'configuration.php';
-  // require 'database.php';
-  // var_dump("server" . SERVERNAME);
-  // var_dump(database::getCategories(2));
 
-    $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    $mydate = date('d-m-Y');
-    $day = date('w');
-    $currentDate = $daysOfWeek[$day] . ' ' . $mydate;
-    $daysleft = 6;
-    $amountDone = 2;
+  $error = '';
+  if($_SERVER['REQUEST_METHOD'] == "POST"){
+    if(!isset($_POST['category']) ){
+      $error = "Fill in category!";
+    }else{
+      if(create::addCategory($_POST['category'], $_SESSION['id'])){
+        header('Location: home.php');
+      }else{
+        echo "failed";
+        // TODO error logging
+      }
+    }
+  }
+
+  $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  $mydate = date('d-m-Y');
+  $day = date('w');
+  $currentDate = $daysOfWeek[$day] . ' ' . $mydate;
+  $daysleft = 6;
+  $amountDone = 2;
 
 ?>
 <!doctype html>
@@ -66,7 +76,7 @@
           <div class="form-inline ">
                 <p id="currentDate" class="navbar-nav mr-4" style="color: rgba(255,255,255,.75)"><?php echo $currentDate ?></p>
           </div>
-          <form  action="logout.php" class="form-inline">
+          <form  action="phpCon/logout.php" class="form-inline">
             <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
           </form>
         </div>      
@@ -77,12 +87,15 @@
         <div class="row justify-content-center">
             <div class="col-7 greyBg mt-5 p-4 whiteText">
                 <h5>New Category</h5>
-                <form action="" class="mt-4">
+
+                <form action="" method="post" class="mt-4">
                   <div class="form-group">
                     <label for="category">Category name</label>
-                    <input type="text" class="form-control" id="category" aria-describedby="category" placeholder="New category name" required>
+                    <input type="text" class="form-control" name="category" id="category" aria-describedby="category" placeholder="New category name" required>
                   </div>
-                  <button class="btn btn-danger mt-2 float-right" type="submit">Submit Category</button>
+                  <?php echo "<p class='neonRed'>$error</p>"; ?>
+                  <button class="btn btn-danger mt-2 float-right" formmethod="post" formaction="" type="submit">Submit Category</button>
+
                 </form>
             </div>
         </div>
