@@ -1,17 +1,33 @@
 <?php
+  require 'phpCon/create.php';
+  require 'phpCon/get.php';
 
-  // We need to use sessions, so you should always start sessions using the below code.
   session_start();
-  // If the user is not logged in redirect to the login page...
   if (!isset($_SESSION['loggedin'])) {
     header('Location: index.html');
     exit;
   }
 
-  // require 'configuration.php';
-  // require 'php-con/database.php';
-  // var_dump("server" . SERVERNAME);
-  // var_dump(database::getCategories(2));
+  $error = '';
+  if($_SERVER['REQUEST_METHOD'] == "POST"){
+    $error = "Not filled in: ";
+    if(!isset($_POST['name']) ){
+      // TODO check the filled stuff
+    }else{
+      if(Create::addHomework($_SESSION['id'], $_POST['category'], $_POST['name'], $_POST['description'], $_POST['duedate'], $_POST['course'], $_POST['priority'])){
+        header('Location: home.php');
+      }else{
+        echo "failed";
+        // TODO error logging
+      }
+    }
+  }
+
+   $categories = Get::getCategories($_SESSION['id']);
+   if(!isset($categories)){
+      die("no categories found");
+      // TODO error logging
+   }
 
     $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     $mydate = date('d-m-Y');
@@ -75,13 +91,50 @@
     </div>
 
     <div class="container-fluid p-0">
-        <div class="row justify-content-center">
+        <div id="formRow" class="row justify-content-center">
             <div class="col-7 greyBg mt-5 p-4 whiteText">
                 <h5>New Task</h5>
-                <form action="" class="mt-4">
+                <form action="" method="POST" class="mt-4">
                   <div class="form-group">
-                    <label for="category">Name</label>
-                    <input type="text" class="form-control" id="category" aria-describedby="category" placeholder="Presentation" required>
+                    <!-- name / text -->
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" aria-describedby="name" placeholder="Name" required>
+                  </div>
+                  <!-- description / text -->
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea name="description"  class="form-control" id="description" placeholder="description..." cols="30" wrap="hard" rows="10"></textarea>
+                  </div>
+                  <!-- category / int -->
+                  <div class="form-group">
+                    <label for="category">Category</label>
+                    <select name="category" id="category" class="form-control">
+                      <!-- generate with categories from DB -->
+                      <?php foreach($categories as $category): ?>
+                        <option value="<?php echo $category[0];?>">
+                            <?php echo $category[1];?>
+                        </option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                  <!-- duedate / datetime -->
+                  <div class="form-group">
+                    <label for="duedate">Duedate</label>
+                    <input type="datetime-local" class="form-control" name="duedate" id="duedate" aria-describedby="duedate" required>
+                  </div>
+                  <!-- course / text -->
+                  <div class="form-group">
+                    <label for="course">Course</label>
+                    <input type="text" class="form-control" id="course" name="course" aria-describedby="course" placeholder="IPMEDTH">
+                  </div>
+                  <!-- priority / enum -->
+                  <div class="form-group">
+                    <label for="priority" >Priority</label>
+                    <select name="priority" id="priority" class="form-control">
+                      <option value="low">LOW</option>
+                      <option value="medium">MEDIUM</option>
+                      <option value="high">HIGH</option>
+                    </select>
                   </div>
                   <button class="btn btn-danger mt-2 float-right" type="submit">Submit Task</button>
                 </form>
