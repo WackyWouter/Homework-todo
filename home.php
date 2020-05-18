@@ -1,17 +1,51 @@
 <?php
+  require  'phpCon/get.php';
 
-  // We need to use sessions, so you should always start sessions using the below code.
   session_start();
-  // If the user is not logged in redirect to the login page...
   if (!isset($_SESSION['loggedin'])) {
     header('Location: index.html');
     exit;
   }
 
-  // require 'configuration.php';
-  // require 'php-con/database.php';
-  // var_dump("server" . SERVERNAME);
-  // var_dump(database::getCategories(2));
+  $categories = Get::getCategories($_SESSION['id']);
+  if(!isset($categories)){
+     die("no categories found");
+     // TODO error logging
+  }
+  $chosenCategory = $categories[0][0];
+
+  if($_SERVER['REQUEST_METHOD'] == "POST"){
+    if(isset($_POST['chosenCategory'])){
+      $chosenCategory = $_POST['chosenCategory'];
+    }
+    else{
+      $error = "Not filled in: ";
+      if(!isset($_POST['name']) ){
+        // TODO check the filled stuff
+      }else{
+        if(Create::addHomework($_SESSION['id'], $_POST['category'], $_POST['name'], $_POST['description'], $_POST['duedate'], $_POST['course'], $_POST['priority'])){
+          header('Location: home.php');
+        }else{
+          echo "failed";
+          // TODO error logging
+        }
+      }
+    }
+    
+  }
+
+
+  $todoTasks = Get::getHomework($_SESSION['id'],$chosenCategory, 0);
+  if(!isset($todoTasks)){
+     die("no categories found");
+     // TODO error logging
+  }
+
+  $doneTasks = Get::getHomework($_SESSION['id'],$chosenCategory, 1);
+  if(!isset($doneTasks)){
+     die("no categories found");
+     // TODO error logging
+  }
 
     $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     $mydate = date('d-m-Y');
@@ -79,15 +113,16 @@
       <div class="row justify-content-center">
         <div class="col-10">
 
-          <div class="dropdown">
-            <a class="dropdown-toggle btn btn-danger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Category
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Category A</a>
-              <a class="dropdown-item" href="#">Category B</a>
-            </div>
-          </div>
+        <form action="" method="POST">
+        <?php foreach($categories as $category): ?>
+          <?php if($chosenCategory == $category[0]) : ?>
+            <button class="btn btn-secondary my-2 my-sm-2" name="chosenCategory" value="<?php echo  $category[0]?>"><?php echo $category[1]?></button>
+          <?php else : ?>
+            <button class="btn btn-danger my-2 my-sm-2" name="chosenCategory" value="<?php echo  $category[0]?>"><?php echo $category[1]?></button>
+          <?php endif; ?>
+            
+        <?php endforeach; ?>
+        </form>
 
         </div>
       </div>
