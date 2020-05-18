@@ -80,3 +80,8 @@ hr{
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+#formRow{
+    margin-right: 0px !important;
+    margin-left:  0px !important;
+}
