@@ -13,7 +13,7 @@
     if(!isset($_POST['category']) ){
       $error = "Fill in category!";
     }else{
-      if(create::addCategory($_POST['category'], $_SESSION['id'])){
+      if(Create::addCategory($_POST['category'], $_SESSION['id'])){
         header('Location: home.php');
       }else{
         echo "failed";

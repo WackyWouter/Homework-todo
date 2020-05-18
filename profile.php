@@ -8,9 +8,9 @@
   }
 
   // require 'configuration.php';
-  // require 'php-con/database.php';
+  // require 'php-con/Database.php';
   // var_dump("server" . SERVERNAME);
-  // var_dump(database::getCategories(2));
+  // var_dump(Database::getCategories(2));
 
     $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     $mydate = date('d-m-Y');

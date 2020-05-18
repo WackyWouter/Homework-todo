@@ -1,11 +1,11 @@
 <?php
-    require 'database.php';
+    require_once 'database.php';
 
-class create{
+class Create{
 
-    public static function addHomework($homework, $user_id, $category_id){
-        if(!database::$connection){
-            database::connection();
+    public static function addHomework($user_id, $category_id, $name, $description, $duedate, $course, $priority){
+        if(!Database::$connection){
+            Database::connection();
         }
 
         if(!isset($category_id)){
@@ -16,29 +16,29 @@ class create{
             die("Error: " . "user_id unset");
             //TODO make this go to log function
         }
-        if(!isset($homework->name)){
+        if(!isset($name)){
             die("Error: " . "name unset");
             //TODO make this go to log function
         }
-        if(!isset($homework->description)){
+        if(!isset($description)){
             die("Error: " . "description unset");
             //TODO make this go to log function
         }
-        if(!isset($homework->duedate)){
+        if(!isset($duedate)){
             die("Error: " . "duedate unset");
             //TODO make this go to log function
         }
-        if(!isset($homework->course)){
+        if(!isset($course)){
             die("Error: " . "course unset");
             //TODO make this go to log function
         }
-        if(!isset($homework->priority)){
+        if(!isset($priority)){
             die("Error: " . "priority unset");
             //TODO make this go to log function
         }
 
-        $stmt = database::$conn->prepare("INSERT INTO homework(user_id, name, description, duedate, course, category_id, priority) VALUES(?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('issssis', $user_id, $homework->name, $homework->description, $homework->duedate, $homework->course, $category_id, $homework->priority);
+        $stmt = Database::$conn->prepare("INSERT INTO homework(user_id, name, description, duedate, course, category_id, priority) VALUES(?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('issssis', $user_id, $name, $description, $duedate, $course, $category_id, $priority);
         $stmt->execute();
         $stmt->close();
 
@@ -47,8 +47,8 @@ class create{
     }
 
     public static function addCategory($category, $user_id){
-        if(!database::$connection){
-            database::connection();
+        if(!Database::$connection){
+            Database::connection();
         }
         if(!isset($category)){
             die("Error: " . "category unset");
@@ -59,7 +59,7 @@ class create{
             //TODO make this go to log function
         }
 
-        $stmt = database::$conn->prepare('SELECT name FROM category WHERE user_id = ? AND name = ?' );
+        $stmt = Database::$conn->prepare('SELECT name FROM category WHERE user_id = ? AND name = ?' );
         $stmt->bind_param('is', $user_id, $category);
         $stmt->execute();
         $stmt->store_result();
@@ -68,7 +68,7 @@ class create{
             return true;
         }
         
-        $stmt = database::$conn->prepare("INSERT INTO category(name, user_id) VALUES(?, ?)");
+        $stmt = Database::$conn->prepare("INSERT INTO category(name, user_id) VALUES(?, ?)");
         $stmt->bind_param('si', $category, $user_id);
         $stmt->execute();
         if(!($stmt->affected_rows > 0)){
@@ -81,8 +81,8 @@ class create{
     }
 
     public static function addUser($user){
-        if(!database::$connection){
-            database::connection();
+        if(!Database::$connection){
+            Database::connection();
         }
         if(!isset($user->username)){
             die("Error: " . "username unset");
@@ -93,7 +93,7 @@ class create{
             //TODO make this go to log function
         }
 
-        $stmt = database::$conn->prepare("INSERT INTO user(username, password) VALUES(?, ?)");
+        $stmt = Database::$conn->prepare("INSERT INTO user(username, password) VALUES(?, ?)");
         $stmt->bind_param('ss', $user->username, $user->password);
         $stmt->execute();
         $stmt->close();
