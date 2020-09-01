@@ -1,5 +1,6 @@
 <?php
-  require  'phpCon/get.php';
+  require 'phpCon/get.php';
+  require 'phpCon/edit.php'; 
 
   session_start();
   if (!isset($_SESSION['loggedin'])) {
@@ -12,7 +13,7 @@
      die("no categories found");
      // TODO error logging
   }
-  $chosenCategory = $categories[0][0];
+  $chosenCategory = $categories[0]['id'];
 
   if($_SERVER['REQUEST_METHOD'] == "POST"){
     if(isset($_POST['chosenCategory'])){
@@ -30,7 +31,18 @@
           // TODO error logging
         }
       }
-    }
+	}
+	
+	if(isset($_POST['done'])){
+		if(isset($_POST['id'])){
+			Edit::doneHomework($_POST['id']);
+		}
+	}
+	if(isset($_POST['undone'])){
+		if(isset($_POST['id'])){
+			Edit::doneHomework($_POST['id'], 0);
+		}
+	}
     
   }
 
@@ -115,10 +127,10 @@
 
         <form action="" method="POST">
         <?php foreach($categories as $category): ?>
-          <?php if($chosenCategory == $category[0]) : ?>
-            <button class="btn btn-secondary my-2 my-sm-2" name="chosenCategory" value="<?php echo  $category[0]?>"><?php echo $category[1]?></button>
+          <?php if($chosenCategory == $category['id']) : ?>
+            <button class="btn btn-secondary my-2 my-sm-2" name="chosenCategory" value="<?php echo  $category['id']?>"><?php echo $category['name']?></button>
           <?php else : ?>
-            <button class="btn btn-danger my-2 my-sm-2" name="chosenCategory" value="<?php echo  $category[0]?>"><?php echo $category[1]?></button>
+            <button class="btn btn-danger my-2 my-sm-2" name="chosenCategory" value="<?php echo  $category['id']?>"><?php echo $category['name']?></button>
           <?php endif; ?>
             
         <?php endforeach; ?>
@@ -127,19 +139,13 @@
         </div>
       </div>
 
-      <!-- TODO PARTS -->
-      <div class="row justify-content-center mt-5">
-        <div class="col-10">
-          <h5 class="whiteText">TODO</h5>
-        </div>
-      </div>
 
       <div class="row justify-content-center mt-4">
         <div class="col-10 greyBg">
           
           <div class="row justify-content-between pt-3 pb-2 pr-2 pl-2">
             <div class="col-4 neonRed font-weight-bold fontSizeM" >
-              Days left: <?php echo $daysleft ?>
+              <h5>TODO</h5>
             </div>
             <div class="col-4 whiteText text-right fontSizeM">
               <?php echo $currentDate ?>
@@ -154,69 +160,41 @@
                 <thead >
                   <tr>
                     <th scope="col" class="pl-3">Name</th>
-                    <th scope="col">Description</th>
+                    <th scope="col" >Description</th>
                     <th scope="col">Course</th>
                     <th scope="col">Priority</th>
+					<th scope="col">Duedate</th>
+					<th scope="col">Days left</th>
                     <th scope="col">Done</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr >
-                    <td class="pl-3 align-middle">Presenteren</td>
-                    <td class="align-middle">Presentatie over logica</td>
-                    <td class="align-middle">IKLO</td>
-                    <td class="align-middle">LOW</td>
-                    <td><div class="btn btn-danger">Done<div></td>
-                  </tr>
-                  <tr>
-                    <td class="pl-3 align-middle">Presenteren</td>
-                    <td class="align-middle">Presentatie over logica</td>
-                    <td class="align-middle">IKLO</td>
-                    <td class="align-middle">LOW</td>
-                    <td><div class="btn btn-danger">Done<div></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                  <?php if (count($todoTasks) != 0): ?>
+                    <?php foreach($todoTasks as $task): ?>
+                    <tr >
+                      <td class="pl-3 align-middle"><?php echo $task['name']; ?></td>
+                      <td class="align-middle table-desc"><?php echo $task['description']; ?></td>
+                      <td class="align-middle"><?php echo $task['course']; ?></td>
+                      <td class="align-middle"><?php echo $task['priority']; ?></td>
+					  <td class="align-middle"><?php echo $task['duedate']; ?></td>
+					  <td class="align-middle">
+						<?php 
+							$now = time(); // or your date as well
+							$datediff =  strtotime($task['duedate']) - $now;
 
-        </div>
-      </div>
-
-      <div class="row justify-content-center mt-4">
-        <div class="col-10 greyBg">
-          
-          <div class="row justify-content-between pt-3 pb-2 pr-2 pl-2">
-            <div class="col-4 neonRed font-weight-bold fontSizeM" >
-              Days left: <?php echo $daysleft ?>
-            </div>
-            <div class="col-4 whiteText text-right fontSizeM">
-              <?php echo $currentDate ?>
-            </div>
-          </div>
-          
-          <hr/>
-          
-          <div class="row justify-content-center">
-            <div class="col-12 pb-2 pl-2 pr-2">
-              <table class="table table-dark greyBg table-borderless table-hover mb-2">
-                <thead>
-                  <tr>
-                    <th scope="col" class="pl-3">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Priority</th>
-                    <th scope="col">Done</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="pl-3 align-middle">Presenteren</td>
-                    <td class="align-middle">Presentatie over logica</td>
-                    <td class="align-middle">IKLO</td>
-                    <td class="align-middle">LOW</td>
-                    <td><div class="btn btn-danger">Done<div></td>
-                  </tr>
+							$daysleft = round($datediff / (60 * 60 * 24)); 
+							echo $daysleft +1;
+						?>
+					   </td>
+					  
+                      <td class="align-middle">
+						  <form action="home.php" method="post">
+						  	<input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
+    						<input class="btn btn-danger" type="submit" name="done" value="done" />
+						</form></td>
+                    </tr>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
                 </tbody>
               </table>
             </div>
@@ -248,20 +226,31 @@
                 <thead >
                   <tr>
                     <th scope="col" class="pl-3">Name</th>
-                    <th scope="col">Description</th>
+                    <th scope="col" >Description</th>
                     <th scope="col">Course</th>
-                    <th scope="col">Priority</th>
+					<th scope="col">Priority</th>
+					<th scope="col">Duedate</th>
                     <th scope="col">Finished</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="pl-3 align-middle">Presenteren</td>
-                    <td class="align-middle">Presentatie over logica</td>
-                    <td class="align-middle">IKLO</td>
-                    <td class="align-middle">LOW</td>
-                    <td><?php echo $currentDate ?></td>
+                <?php if (count($doneTasks) != 0): ?>
+                  <?php foreach($doneTasks as $task): ?>
+                  <tr >
+                    <td class="pl-3 align-middle"><?php echo $task['name']; ?></td>
+                    <td class="align-middle table-desc"><?php echo $task['description']; ?></td>
+                    <td class="align-middle"><?php echo $task['course']; ?></td>
+                    <td class="align-middle"><?php echo $task['priority']; ?></td>
+                    <td class="align-middle"><?php echo $task['duedate']; ?></td>
+                    <td class="align-middle">
+						<form action="home.php" method="post">
+							<input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
+    						<input class="btn btn-danger" type="submit" name="undone" value="Undone" />
+						</form>
+					</td>
                   </tr>
+                  <?php endforeach; ?>
+                  <?php endif; ?>
                 </tbody>
               </table>
             </div>

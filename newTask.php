@@ -111,8 +111,8 @@
                     <select name="category" id="category" class="form-control">
                       <!-- generate with categories from DB -->
                       <?php foreach($categories as $category): ?>
-                        <option value="<?php echo $category[0];?>">
-                            <?php echo $category[1];?>
+                        <option value="<?php echo $category['id'];?>">
+                            <?php echo $category['name'];?>
                         </option>
                       <?php endforeach; ?>
                     </select>
@@ -120,7 +120,7 @@
                   <!-- duedate / datetime -->
                   <div class="form-group">
                     <label for="duedate">Duedate</label>
-                    <input type="datetime-local" class="form-control" name="duedate" id="duedate" aria-describedby="duedate" required>
+                    <input type="date" class="form-control" name="duedate" id="duedate" aria-describedby="duedate" required>
                   </div>
                   <!-- course / text -->
                   <div class="form-group">

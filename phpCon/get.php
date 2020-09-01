@@ -46,18 +46,19 @@ class Get{
         }
 
         $result = [];
+        $id = '';
         $name = '';
         $description = '';
         $duedate = '';
         $course = '';
         $priority = '';
 
-        $stmt = Database::$conn->prepare("SELECT name, description, duedate, course, priority FROM homework WHERE user_id = ? AND category_id = ? AND done = ?");
+        $stmt = Database::$conn->prepare("SELECT id, name, description, duedate, course, priority FROM homework WHERE user_id = ? AND category_id = ? AND done = ? ORDER BY duedate ASC");
         $stmt->bind_param("iii", $user_id, $category_id, $done);
         $stmt->execute();
-        $stmt->bind_result($name, $description, $duedate, $course, $priority);
+        $stmt->bind_result($id, $name, $description, $duedate, $course, $priority);
         while ($stmt->fetch()){
-            $result [] = [$name, $description, $duedate, $course, $priority];
+            $result [] = ['id'=>$id, 'name' => $name, 'description' => $description, 'duedate' => $duedate, 'course' => $course, 'priority' => $priority];
         }
         $stmt->close();
 
@@ -78,7 +79,7 @@ class Get{
         $stmt->execute();
         $stmt->bind_result($id, $name);
         while ($stmt->fetch()){
-            $result [] = [$id, $name];
+            $result [] = ['id' => $id, 'name' => $name];
         }
         $stmt->close();
 
