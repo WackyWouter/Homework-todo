@@ -123,7 +123,7 @@
 
     <div class="container-fluid mt-4 mb-5">
       <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-md-10">
 
         <form action="" method="POST">
         <?php foreach($categories as $category): ?>
@@ -139,9 +139,8 @@
         </div>
       </div>
 
-
       <div class="row justify-content-center mt-4">
-        <div class="col-10 greyBg">
+        <div class="col-md-10 greyBg">
           
           <div class="row justify-content-between pt-3 pb-2 pr-2 pl-2">
             <div class="col-4 neonRed font-weight-bold fontSizeM" >
@@ -155,7 +154,7 @@
           <hr/>
 
           <div class="row justify-content-center">
-            <div class="col-12 pb-2 pl-2 pr-2">
+            <div class="col-md-12 pb-2 pl-2 pr-2 overflow">
               <table class="table table-dark greyBg table-borderless table-hover mb-2">
                 <thead >
                   <tr>
@@ -203,25 +202,19 @@
         </div>
       </div>
 
-      <!-- DONE PARTS -->
-      <div class="row justify-content-center mt-5">
-        <div class="col-10">
-          <h5 class="whiteText">DONE</h5>
-        </div>
-      </div>
 
       <div class="row justify-content-center mt-4">
-        <div class="col-10 greyBg">
+        <div class="col-md-10 greyBg">
           <div class="row justify-content-between pt-3 pb-2 pr-2 pl-2">
             <div class="col-4 neonGreen font-weight-bold fontSizeM" >
-              Amount done: <?php echo $amountDone ?>
+				<h5>DONE</h5>
             </div>
           </div>
 
           <hr id="greenTop"/>
 
           <div class="row justify-content-center">
-            <div class="col-12 pb-2 pl-2 pr-2">
+            <div class="col-md-12 pb-2 pl-2 pr-2">
               <table class="table table-dark greyBg table-borderless table-hover mb-2">
                 <thead >
                   <tr>

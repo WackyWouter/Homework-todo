@@ -85,3 +85,12 @@ hr{
     margin-right: 0px !important;
     margin-left:  0px !important;
 }
+
+.table-desc{
+    word-wrap: break-word;
+    max-width: 150px;
+}
+
+.overflow{
+    overflow: scroll;
+}
