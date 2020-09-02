@@ -92,5 +92,5 @@ hr{
 }
 
 .overflow{
-    overflow: scroll;
+    overflow: auto;
 }

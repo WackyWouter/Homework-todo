@@ -214,7 +214,7 @@
           <hr id="greenTop"/>
 
           <div class="row justify-content-center">
-            <div class="col-md-12 pb-2 pl-2 pr-2">
+            <div class="col-md-12 pb-2 pl-2 pr-2 overflow">
               <table class="table table-dark greyBg table-borderless table-hover mb-2">
                 <thead >
                   <tr>
