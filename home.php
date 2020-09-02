@@ -86,7 +86,7 @@
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg navbar-dark greyBg justify-content-between">
         <a class="navbar-brand" href="home.php">Homework TODO</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
