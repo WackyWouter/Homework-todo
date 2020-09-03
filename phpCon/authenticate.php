@@ -12,7 +12,7 @@
 	}
 
 	if(Get::getUser($_POST['username'], $_POST['password'])){
-		header('Location: ../home.php');
+		header('Location: ../php/home.php');
 	}else{
 		echo "failed login. Wrong credentials";
 	}
