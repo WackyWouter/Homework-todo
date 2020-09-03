@@ -73,17 +73,32 @@ class Get{
         $result = [];
         $name = '';
         $id = '';
+        $moddate = '';
+        $adddate = '';
 
-        $stmt = Database::$conn->prepare("SELECT id, name FROM category WHERE user_id = ?");
+        $stmt = Database::$conn->prepare("SELECT id, name, moddate, adddate FROM category WHERE user_id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $stmt->bind_result($id, $name);
         while ($stmt->fetch()){
-            $result [] = ['id' => $id, 'name' => $name];
+            $result [] = ['id' => $id, 'name' => $name, 'moddate' => $moddate, 'adddate' => $adddate];
         }
         $stmt->close();
 
         return $result;
+    }
+
+    public static function getTaskAmountByCat($user_id, $category_id, $type = 'all'){
+        switch($type):
+            case 'all':
+                //TODO count the amount of tasks that belong to this category
+                break;
+            case 'done':
+                //TODO count the amount of done tasks that belong to this category
+                break;
+            case 'todo':
+                //TODO count the amount of tasks that still need to be done in this category
+                break;
     }
 }
 
