@@ -1,6 +1,6 @@
 <?php
-  require 'phpCon/get.php';
-  require 'phpCon/edit.php'; 
+  require '../database/get.php';
+  require '../database/edit.php'; 
 
   session_start();
   if (!isset($_SESSION['loggedin'])) {
@@ -17,20 +17,20 @@
 
   if($_SERVER['REQUEST_METHOD'] == "POST"){
     if(isset($_POST['chosenCategory'])){
-      $chosenCategory = $_POST['chosenCategory'];
+        $chosenCategory = $_POST['chosenCategory'];
     }
     else{
-      $error = "Not filled in: ";
-      if(!isset($_POST['name']) ){
+        $error = "Not filled in: ";
+        if(!isset($_POST['name']) ){
         // TODO check the filled stuff
-      }else{
-        if(Create::addHomework($_SESSION['id'], $_POST['category'], $_POST['name'], $_POST['description'], $_POST['duedate'], $_POST['course'], $_POST['priority'])){
-          header('Location: home.php');
         }else{
-          echo "failed";
-          // TODO error logging
+            if(Create::addHomework($_SESSION['id'], $_POST['category'], $_POST['name'], $_POST['description'], $_POST['duedate'], $_POST['course'], $_POST['priority'])){
+                header('Location: home.php');
+            }else{
+                echo "failed";
+                // TODO error logging
+            }
         }
-      }
 	}
 	
 	if(isset($_POST['done'])){
@@ -44,28 +44,20 @@
 		}
 	}
     
-  }
+}
 
+$todoTasks = Get::getHomework($_SESSION['id'],$chosenCategory, 0);
+if(!isset($todoTasks)){
+    die("no categories found");
+    // TODO error logging
+}
 
-  $todoTasks = Get::getHomework($_SESSION['id'],$chosenCategory, 0);
-  if(!isset($todoTasks)){
-     die("no categories found");
-     // TODO error logging
-  }
-
-  $doneTasks = Get::getHomework($_SESSION['id'],$chosenCategory, 1);
-  if(!isset($doneTasks)){
-     die("no categories found");
-     // TODO error logging
-  }
-
-    $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    $mydate = date('d-m-Y');
-    $day = date('w');
-    $currentDate = $daysOfWeek[$day] . ' ' . $mydate;
-    $daysleft = 6;
-    $amountDone = 2;
-
+$doneTasks = Get::getHomework($_SESSION['id'],$chosenCategory, 1);
+if(!isset($doneTasks)){
+    die("no categories found");
+    // TODO error logging
+}
+$currentDate = date('l d-m-Y');
 ?>
 <!doctype html>
 <html lang="en">
@@ -74,13 +66,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="img/iconR.png">
+    <link rel="icon" href="../img/iconR.png">
     <title>Home</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="../css/custom.css">
 
     <title>Homework TODO</title>
 </head>
@@ -123,7 +115,7 @@
                     <p id="currentDate" class="navbar-nav mr-4" style="color: rgba(255,255,255,.75)">
                         <?php echo $currentDate ?></p>
                 </div>
-                <form action="phpCon/logout.php" class="form-inline">
+                <form action="database/logout.php" class="form-inline">
                     <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
                 </form>
             </div>

@@ -79,7 +79,7 @@ class Get{
         $stmt = Database::$conn->prepare("SELECT id, name, moddate, adddate FROM category WHERE user_id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
-        $stmt->bind_result($id, $name);
+        $stmt->bind_result($id, $name, $moddate, $adddate);
         while ($stmt->fetch()){
             $result [] = ['id' => $id, 'name' => $name, 'moddate' => $moddate, 'adddate' => $adddate];
         }
@@ -89,16 +89,31 @@ class Get{
     }
 
     public static function getTaskAmountByCat($user_id, $category_id, $type = 'all'){
-        switch($type):
+        $amount = null;
+        $query = '';
+        switch($type) {
             case 'all':
-                //TODO count the amount of tasks that belong to this category
+                $query ="SELECT  count(c.id) FROM category c LEFT JOIN homework h ON h.category_id = c.id WHERE c.user_id = ? AND c.id = ?";
                 break;
             case 'done':
-                //TODO count the amount of done tasks that belong to this category
+                $query ="SELECT  count(c.id) FROM category c LEFT JOIN homework h ON h.category_id = c.id WHERE c.user_id = ? AND c.id = ? AND h.done = 1";
                 break;
             case 'todo':
-                //TODO count the amount of tasks that still need to be done in this category
+                $query ="SELECT  count(c.id) FROM category c LEFT JOIN homework h ON h.category_id = c.id WHERE c.user_id = ? AND c.id = ? AND h.done = 0";
                 break;
+            default:
+                die("Error: " . "wrong type");
+                //TODO make this go to log function
+                
+        }
+        $stmt = Database::$conn->prepare($query);
+        $stmt->bind_param('ii', $user_id, $category_id);
+        $stmt->execute();
+        $stmt->bind_result($amount);
+        $stmt->fetch();
+        $stmt->close();
+
+        return $amount;
     }
 }
 

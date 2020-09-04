@@ -11,6 +11,7 @@
   // require 'php-con/Database.php';
   // var_dump("server" . SERVERNAME);
   // var_dump(Database::getCategories(2));
+  $currentDate = date('l d-m-Y');
 
 ?>
 <!doctype html>
@@ -24,18 +25,18 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="../css/custom.css">
 
     <title>Profile</title>
-    <link rel="icon" href="img/iconR.png">
+    <link rel="icon" href="../img/iconR.png">
 </head>
 
 <body>
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg navbar-dark greyBg justify-content-between">
             <a class="navbar-brand" href="home.php">Homework TODO</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -69,7 +70,7 @@
                     <p id="currentDate" class="navbar-nav mr-4" style="color: rgba(255,255,255,.75)">
                         <?php echo $currentDate ?></p>
                 </div>
-                <form action="phpCon/logout.php" class="form-inline">
+                <form action="database/logout.php" class="form-inline">
                     <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
                 </form>
             </div>
