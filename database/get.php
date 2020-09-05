@@ -81,7 +81,7 @@ class Get{
         $stmt->execute();
         $stmt->bind_result($id, $name, $moddate, $adddate);
         while ($stmt->fetch()){
-            $result [] = ['id' => $id, 'name' => $name, 'moddate' => $moddate, 'adddate' => $adddate];
+            $result [$id] = ['id' => $id, 'name' => $name, 'moddate' => $moddate, 'adddate' => $adddate];
         }
         $stmt->close();
 

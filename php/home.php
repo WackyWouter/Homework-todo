@@ -13,26 +13,10 @@
      die("no categories found");
      // TODO error logging
   }
-  $chosenCategory = $categories[0]['id'];
+
+  $chosenCategoryId = (isset($_POST['category'])) ? $_POST['category'] : key($categories);
 
   if($_SERVER['REQUEST_METHOD'] == "POST"){
-    if(isset($_POST['chosenCategory'])){
-        $chosenCategory = $_POST['chosenCategory'];
-    }
-    else{
-        $error = "Not filled in: ";
-        if(!isset($_POST['name']) ){
-        // TODO check the filled stuff
-        }else{
-            if(Create::addHomework($_SESSION['id'], $_POST['category'], $_POST['name'], $_POST['description'], $_POST['duedate'], $_POST['course'], $_POST['priority'])){
-                header('Location: home.php');
-            }else{
-                echo "failed";
-                // TODO error logging
-            }
-        }
-	}
-	
 	if(isset($_POST['done'])){
 		if(isset($_POST['id'])){
 			Edit::doneHomework($_POST['id']);
@@ -43,16 +27,15 @@
 			Edit::doneHomework($_POST['id'], 0);
 		}
 	}
-    
 }
 
-$todoTasks = Get::getHomework($_SESSION['id'],$chosenCategory, 0);
+$todoTasks = Get::getHomework($_SESSION['id'],$chosenCategoryId, 0);
 if(!isset($todoTasks)){
     die("no categories found");
     // TODO error logging
 }
 
-$doneTasks = Get::getHomework($_SESSION['id'],$chosenCategory, 1);
+$doneTasks = Get::getHomework($_SESSION['id'],$chosenCategoryId, 1);
 if(!isset($doneTasks)){
     die("no categories found");
     // TODO error logging
@@ -128,12 +111,10 @@ $currentDate = date('l d-m-Y');
 
                 <form action="" method="POST">
                     <?php foreach($categories as $category): ?>
-                    <?php if($chosenCategory == $category['id']) : ?>
-                    <button class="btn btn-secondary my-2 my-sm-2" name="chosenCategory"
-                        value="<?php echo  $category['id']?>"><?php echo $category['name']?></button>
+                    <?php if($chosenCategoryId == $category['id']) : ?>
+                        <button class="btn btn-secondary my-2 my-sm-2" name="category" value="<?php echo  $category['id']?>"><?php echo $category['name']?></button>
                     <?php else : ?>
-                    <button class="btn btn-danger my-2 my-sm-2" name="chosenCategory"
-                        value="<?php echo  $category['id']?>"><?php echo $category['name']?></button>
+                        <button class="btn btn-danger my-2 my-sm-2" name="category" value="<?php echo  $category['id']?>"><?php echo $category['name']?></button>
                     <?php endif; ?>
 
                     <?php endforeach; ?>
@@ -192,6 +173,7 @@ $currentDate = date('l d-m-Y');
                                     <td class="align-middle">
                                         <form action="home.php" method="post">
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
+                                            <input type="hidden" name="category" value="<?php echo $chosenCategoryId; ?>" />
                                             <input class="btn btn-danger" type="submit" name="done" value="done" />
                                         </form>
                                     </td>
@@ -242,6 +224,7 @@ $currentDate = date('l d-m-Y');
                                     <td class="align-middle">
                                         <form action="home.php" method="post">
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
+                                            <input type="hidden" name="category" value="<?php echo $chosenCategoryId; ?>" />
                                             <input class="btn btn-danger" type="submit" name="undone" value="Undone" />
                                         </form>
                                     </td>
