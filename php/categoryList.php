@@ -106,7 +106,7 @@ $currentDate = date('l d-m-Y');
                         <?php if (count($categories) != 0): ?>
                         <?php foreach($categories as $cat): ?>
                         <tr>
-                            <td class="pl-3 align-middle"><?php echo $cat['name']; ?></td>
+                            <td class="pl-3 align-middle"><a href="editCategory.php?id=<?= $cat['id'] ?>"><?php echo $cat['name']; ?></a></td>
                             <td class="align-middle"><?php echo $cat['todo']; ?></td>
                             <td class="align-middle"><?php echo $cat['done']; ?></td>
                             <td class="align-middle"><?php echo $cat['adddate']; ?></td>
@@ -122,9 +122,6 @@ $currentDate = date('l d-m-Y');
                         <?php endif; ?> 
                     </tbody>
                 </table>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

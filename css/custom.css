@@ -101,3 +101,11 @@ hr {
 .overflow {
     overflow-x: auto;
 }
+
+a {
+    color: #C82333;
+}
+
+a:hover {
+    color: #9b1722;
+}

@@ -11,12 +11,18 @@ class Edit{
         //   ??
     }
 
-    public static function editCategory($id, $category){
-        if(!isset($id)){
-            die("Error: " . "id unset");
+    public static function editCategory($id, $name){
+        if(!isset($id) || !isset($name)){
+            die("Error: id or name unset");
             //TODO make this go to log function
         }
-        //   ??
+        if(!Database::$connection){
+            Database::connection();
+        }
+        $stmt = Database::$conn->prepare("UPDATE category SET name = ? WHERE id = ?");
+        $stmt->bind_param("si", $name, $id);
+        $stmt->execute();
+        $stmt->close();
     }
 
     public static function editUser($id, $user){

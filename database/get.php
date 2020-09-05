@@ -76,7 +76,7 @@ class Get{
         $moddate = '';
         $adddate = '';
 
-        $stmt = Database::$conn->prepare("SELECT id, name, moddate, adddate FROM category WHERE user_id = ?");
+        $stmt = Database::$conn->prepare("SELECT id, name, moddate, adddate FROM category WHERE user_id = ? ORDER BY name ASC");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $stmt->bind_result($id, $name, $moddate, $adddate);
@@ -84,6 +84,27 @@ class Get{
             $result [] = ['id' => $id, 'name' => $name, 'moddate' => $moddate, 'adddate' => $adddate];
         }
         $stmt->close();
+
+        return $result;
+    }
+
+    public static function getCategory($cat_id){
+        if(!Database::$connection){
+            Database::connection();
+        }
+
+        $name = '';
+        $id = '';
+        $moddate = '';
+        $adddate = '';
+
+        $stmt = Database::$conn->prepare("SELECT id, name, moddate, adddate FROM category WHERE id = ?");
+        $stmt->bind_param("i", $cat_id);
+        $stmt->execute();
+        $stmt->bind_result($id, $name, $moddate, $adddate);
+        $stmt->fetch();
+        $stmt->close();
+        $result = ['id' => $id, 'name' => $name, 'moddate' => $moddate, 'adddate' => $adddate];
 
         return $result;
     }

@@ -1,28 +1,32 @@
 <?php
-  require '../database/create.php';
+require '../database/get.php';
+require '../database/edit.php';
 
-  session_start();
+session_start();
+if (!isset($_SESSION['loggedin'])) {
+  header('Location: index.html');
+  exit;
+}
 
-  if (!isset($_SESSION['loggedin'])) {
-    header('Location: index.html');
-    exit;
-  }
-
-  $error = '';
-  if($_SERVER['REQUEST_METHOD'] == "POST"){
-    if(!isset($_POST['category']) ){
-      $error = "Fill in category!";
+$error = '';
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+    if(!isset($_POST['name']) ){
+        $error = "Fill in category!";
     }else{
-      if(Create::addCategory($_POST['category'], $_SESSION['id'])){
-        header('Location: home.php');
-      }else{
-        echo "failed";
-        // TODO error logging
-      }
+        Edit::editCategory($_POST['id'], $_POST['name']);
+        header('Location: categoryList.php');
     }
-  }
+}
+$category = [];
+if(isset($_GET['id'])){
+    $category =  Get::getCategory($_GET['id']);
+}
+else{
+    die("no id found");
+    // TODO error logging
+}
 
-  $currentDate = date('l d-m-Y');
+$currentDate = date('l d-m-Y');
 
 ?>
 <!doctype html>
@@ -32,14 +36,15 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="../img/iconR.png">
+    <title>Home</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/custom.css">
 
-    <title>New Category</title>
-    <link rel="icon" href="../img/iconR.png">
+    <title>Homework TODO</title>
 </head>
 
 <body>
@@ -60,16 +65,16 @@
                         <a class="nav-link" href="profile.php">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="categoryList.php">Categories <span
+                        <a class="nav-link whiteText" href="categoryList.php">Categories <span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle whiteText" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             New
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Category</a>
+                            <a class="dropdown-item" href="newCategory.php">Category</a>
                             <a class="dropdown-item" href="newTask.php">Task</a>
                         </div>
                     </li>
@@ -89,25 +94,24 @@
     </div>
 
     <div class="container-fluid p-0">
-        <div class="row justify-content-center">
+        <div id="formRow" class="row justify-content-center">
             <div class="col-md-7 greyBg mt-5 p-4 whiteText">
-                <h5>New Category</h5>
+                <h5>Edit Category</h5>
 
                 <form action="" method="post" class="mt-4">
                     <div class="form-group">
-                        <label for="category">Category name</label>
-                        <input type="text" class="form-control" name="category" id="category"
-                            aria-describedby="category" placeholder="New category name" required>
+                        <label for="name">Category name</label>
+                        <input type="hidden" name="id" value="<?php echo $category['id']; ?>" />
+                        <input type="text" class="form-control" name="name" id="name"
+                            aria-describedby="name" placeholder=<?php echo $category['name']; ?> required>
                     </div>
                     <?php echo "<p class='neonRed'>$error</p>"; ?>
                     <button class="btn btn-danger mt-2 float-right" formmethod="post" formaction="" type="submit">Submit
                         Category</button>
-
                 </form>
             </div>
         </div>
     </div>
-
 
 
     <!-- Optional JavaScript -->
