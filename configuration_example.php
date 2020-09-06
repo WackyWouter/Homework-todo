@@ -3,6 +3,7 @@
     define("DB_UID", "");
     define("DB_PWD", "");
     define("DB_HOST", "");
+    define('BASEPATH', '/');
 
 
 ?>
