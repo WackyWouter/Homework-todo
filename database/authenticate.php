@@ -9,7 +9,7 @@
 		exit('Please fill both the username and password fields!');
 	}
 
-	if(Get::getUser($_POST['username'], $_POST['password'])){
+	if(Get::CheckUser($_POST['username'], $_POST['password'])){
 		header('Location: ../php/home.php');
 	}else{
 		echo "failed login. Wrong credentials";

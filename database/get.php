@@ -2,13 +2,18 @@
 require_once '../Usefull-PHP/up_database.php';
 
 class Get{
-    public static function getUser($username, $password){
+    public static function CheckUser($username, $password){
         if(!isset($username)){
             die("Error: " . "username unset");
             //TODO make this go to log function
         }
 
-        if ($stmt = up_database::prepare('SELECT id, password FROM users WHERE username = ?')) {
+        if ($stmt = up_database::prepare('SELECT user_uuid
+                                                , AES_DECRYPT(password, UNHEX(SHA2(user_uuid, 512))) 
+                                            FROM 
+                                                users 
+                                            WHERE 
+                                                username = ?')) {
             $stmt->bind_param('s', $username);
             $stmt->execute();
             $stmt->store_result();
@@ -20,7 +25,7 @@ class Get{
             if ($stmt->num_rows > 0) {
                 $stmt->bind_result($id, $passwordDB);
                 $stmt->fetch();
-               if (password_verify($password, $passwordDB)) {
+               if ($password === $passwordDB) {
                     session_regenerate_id();
                     $_SESSION['loggedin'] = TRUE;
                     $_SESSION['name'] = $username;
@@ -32,6 +37,33 @@ class Get{
         }
         $stmt->close();
         return false;
+    }
+
+    public static function getUser($id){
+        $username = null;
+        $password = null;
+        $user_uuid = null;
+        $adddate = null;
+        $user = [];
+
+        $stmt = up_database::prepare('SELECT id
+                                                , username
+                                                , AES_DECRYPT(password, UNHEX(SHA2(user_uuid, 512))) 
+                                                , user_uuid
+                                                , adddate
+                                            FROM 
+                                                users 
+                                            WHERE 
+                                                user_uuid = ?');
+        $stmt->bind_param('s', $id);
+        $stmt->execute();
+        $stmt->bind_result($id, $username, $password, $user_uuid, $adddate);
+        $stmt->fetch();
+        $stmt->close();
+        
+        $user = ['id' => $id, 'username' => $username, 'password' => $password, 'user_uuid' => $user_uuid, 'adddate' => $adddate];
+
+        return $user;
     }
 
     

@@ -1,6 +1,7 @@
 <?php
   require '../database/get.php';
-  require '../database/edit.php'; 
+  require '../database/edit.php';
+//   require_once __DIR__ . '/_autoload.php';
 
   session_start();
   if (!isset($_SESSION['loggedin'])) {

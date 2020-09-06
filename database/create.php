@@ -1,5 +1,6 @@
 <?php
     require_once '../Usefull-PHP/up_database.php';
+    require_once '../Usefull-PHP/up_crypt.php';
 
 class Create{
 
@@ -84,8 +85,10 @@ class Create{
             //TODO make this go to log function
         }
 
-        $stmt = up_database::prepare("INSERT INTO user(username, password) VALUES(?, ?)");
-        $stmt->bind_param('ss', $user->username, $user->password);
+        $uuid4 = up_crypt::uuid4();
+
+        $stmt = up_database::prepare("INSERT INTO user(username, password, user_uuid) VALUES(?, (AES_ENCRYPT(?, UNHEX(SHA2(?, 512))), ?)");
+        $stmt->bind_param('ssss', $user['username'], $user['password'], $uuid4, $uuid4 );
         $stmt->execute();
         $stmt->close();
 

@@ -2,9 +2,9 @@
 -- version 5.0.2-dev
 -- https://www.phpmyadmin.net/
 --
--- Host: shareddb1d.hosting.stackcp.net
--- Gegenereerd op: 03 mrt 2020 om 22:39
--- Serverversie: 10.2.26-MariaDB-log
+-- Host: shareddb1c.hosting.stackcp.net
+-- Gegenereerd op: 06 sep 2020 om 17:12
+-- Serverversie: 10.2.33-MariaDB-log
 -- PHP-versie: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,8 +18,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Homework-36353e2a`
+-- Database: `homework-3633a282`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `category`
+--
+
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `user_id` varchar(255) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `adddate` datetime NOT NULL DEFAULT current_timestamp(),
+  `moddate` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -29,12 +43,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `homework` (
   `id` int(11) NOT NULL,
+  `user_id` varchar(255) COLLATE ascii_bin NOT NULL,
   `name` varchar(255) COLLATE ascii_bin NOT NULL,
   `description` text COLLATE ascii_bin DEFAULT NULL,
-  `duedate` datetime NOT NULL,
+  `comments` text COLLATE ascii_bin DEFAULT NULL,
+  `duedate` date NOT NULL,
   `course` varchar(255) COLLATE ascii_bin DEFAULT NULL,
-  `category` varchar(255) COLLATE ascii_bin NOT NULL DEFAULT '"school"',
-  `priority` enum('LOW','MEDIUM','HIGH') COLLATE ascii_bin NOT NULL DEFAULT 'LOW',
+  `category_id` int(11) NOT NULL,
+  `priority` enum('low','medium','high') COLLATE ascii_bin NOT NULL DEFAULT 'low',
   `done` tinyint(1) NOT NULL DEFAULT 0,
   `adddate` datetime NOT NULL DEFAULT current_timestamp(),
   `moddate` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -49,7 +65,8 @@ CREATE TABLE `homework` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) COLLATE ascii_bin NOT NULL,
-  `password` varchar(255) COLLATE ascii_bin NOT NULL,
+  `password` varbinary(255) NOT NULL,
+  `user_uuid` varchar(255) COLLATE ascii_bin NOT NULL,
   `adddate` datetime NOT NULL DEFAULT current_timestamp(),
   `moddate` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin;
@@ -59,22 +76,38 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indexen voor tabel `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_user_id` (`user_id`);
+
+--
 -- Indexen voor tabel `homework`
 --
 ALTER TABLE `homework`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_user_id` (`user_id`),
+  ADD KEY `category_id` (`category_id`) USING BTREE;
 
 --
 -- Indexen voor tabel `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`user_uuid`),
+  ADD UNIQUE KEY `id` (`id`),
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `password` (`password`);
 
 --
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
+
+--
+-- AUTO_INCREMENT voor een tabel `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT voor een tabel `homework`
@@ -87,6 +120,23 @@ ALTER TABLE `homework`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Beperkingen voor geëxporteerde tabellen
+--
+
+--
+-- Beperkingen voor tabel `category`
+--
+ALTER TABLE `category`
+  ADD CONSTRAINT `FK_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_uuid`) ON DELETE CASCADE;
+
+--
+-- Beperkingen voor tabel `homework`
+--
+ALTER TABLE `homework`
+  ADD CONSTRAINT `FK_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_uuid`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
