@@ -1,18 +1,14 @@
 <?php
-require_once 'database.php';
+require_once '../Usefull-PHP/up_database.php';
 
 class Get{
     public static function getUser($username, $password){
-        if(!Database::$connection){
-            Database::connection();
-        }
-
         if(!isset($username)){
             die("Error: " . "username unset");
             //TODO make this go to log function
         }
 
-        if ($stmt = Database::$conn->prepare('SELECT id, password FROM users WHERE username = ?')) {
+        if ($stmt = up_database::prepare('SELECT id, password FROM users WHERE username = ?')) {
             $stmt->bind_param('s', $username);
             $stmt->execute();
             $stmt->store_result();
@@ -41,10 +37,6 @@ class Get{
     
 
     public static function getHomework($user_id, $category_id, $done){
-        if(!Database::$connection){
-            Database::connection();
-        }
-
         $result = [];
         $id = '';
         $name = '';
@@ -53,7 +45,7 @@ class Get{
         $course = '';
         $priority = '';
 
-        $stmt = Database::$conn->prepare("SELECT id, name, description, duedate, course, priority FROM homework WHERE user_id = ? AND category_id = ? AND done = ? ORDER BY duedate ASC");
+        $stmt = up_database::prepare("SELECT id, name, description, duedate, course, priority FROM homework WHERE user_id = ? AND category_id = ? AND done = ? ORDER BY duedate ASC");
         $stmt->bind_param("iii", $user_id, $category_id, $done);
         $stmt->execute();
         $stmt->bind_result($id, $name, $description, $duedate, $course, $priority);
@@ -66,17 +58,13 @@ class Get{
     }
 
     public static function getCategories($user_id){
-        if(!Database::$connection){
-            Database::connection();
-        }
-
         $result = [];
         $name = '';
         $id = '';
         $moddate = '';
         $adddate = '';
 
-        $stmt = Database::$conn->prepare("SELECT id, name, moddate, adddate FROM category WHERE user_id = ? ORDER BY name ASC");
+        $stmt = up_database::prepare("SELECT id, name, moddate, adddate FROM category WHERE user_id = ? ORDER BY name ASC");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $stmt->bind_result($id, $name, $moddate, $adddate);
@@ -89,16 +77,12 @@ class Get{
     }
 
     public static function getCategory($cat_id){
-        if(!Database::$connection){
-            Database::connection();
-        }
-
         $name = '';
         $id = '';
         $moddate = '';
         $adddate = '';
 
-        $stmt = Database::$conn->prepare("SELECT id, name, moddate, adddate FROM category WHERE id = ?");
+        $stmt = up_database::prepare("SELECT id, name, moddate, adddate FROM category WHERE id = ?");
         $stmt->bind_param("i", $cat_id);
         $stmt->execute();
         $stmt->bind_result($id, $name, $moddate, $adddate);
@@ -127,7 +111,7 @@ class Get{
                 //TODO make this go to log function
                 
         }
-        $stmt = Database::$conn->prepare($query);
+        $stmt = up_database::prepare($query);
         $stmt->bind_param('ii', $user_id, $category_id);
         $stmt->execute();
         $stmt->bind_result($amount);

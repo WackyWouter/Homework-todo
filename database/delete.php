@@ -1,13 +1,9 @@
 <?php
-require_once 'database.php';
+require_once '../Usefull-PHP/up_database.php';
 
 class Delete{
     public static function deleteHomework($id){
-        if(!Database::$connection){
-            Database::connection();
-        }
-
-        $stmt = Database::$conn->prepare("DELETE FROM homework WHERE id = ?");
+        $stmt = up_database::prepare("DELETE FROM homework WHERE id = ?");
         $stmt->bind_param('s', $id);
         $stmt->execute();
         $stmt->close();
@@ -16,11 +12,7 @@ class Delete{
     }
 
     public static function deleteCategory($id){
-        if(!Database::$connection){
-            Database::connection();
-        }
-
-        $stmt = Database::$conn->prepare("DELETE FROM category WHERE id = ?");
+        $stmt = up_database::prepare("DELETE FROM category WHERE id = ?");
         $stmt->bind_param('s', $id);
         $stmt->execute();
         $stmt->close();
@@ -29,11 +21,7 @@ class Delete{
     }
 
     public static function deleteUser($id){
-        if(!Database::$connection){
-            Database::connection();
-        }
-
-        $stmt = Database::$conn->prepare("DELETE FROM user WHERE id = ?");
+        $stmt = up_database::prepare("DELETE FROM user WHERE id = ?");
         $stmt->bind_param('s', $id);
         $stmt->execute();
         $stmt->close();

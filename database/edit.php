@@ -1,5 +1,5 @@
 <?php
-require_once 'database.php';
+require_once '../Usefull-PHP/up_database.php';
 
 class Edit{
 
@@ -16,10 +16,7 @@ class Edit{
             die("Error: id or name unset");
             //TODO make this go to log function
         }
-        if(!Database::$connection){
-            Database::connection();
-        }
-        $stmt = Database::$conn->prepare("UPDATE category SET name = ? WHERE id = ?");
+        $stmt = up_database::prepare("UPDATE category SET name = ? WHERE id = ?");
         $stmt->bind_param("si", $name, $id);
         $stmt->execute();
         $stmt->close();
@@ -40,7 +37,7 @@ class Edit{
             //TODO make this go to log function
         }
 
-        $stmt = Database::$conn->prepare("UPDATE homework SET done = ? WHERE id = ?");
+        $stmt = up_database::prepare("UPDATE homework SET done = ? WHERE id = ?");
         $stmt->bind_param("ii", $done, $id);
         $stmt->execute();
         $stmt->close();
