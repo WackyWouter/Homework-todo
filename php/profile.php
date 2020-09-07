@@ -1,17 +1,17 @@
 <?php
-  // We need to use sessions, so you should always start sessions using the below code.
-  session_start();
-  // If the user is not logged in redirect to the login page...
-  if (!isset($_SESSION['loggedin'])) {
-    header('Location: index.html');
-    exit;
-  }
+    require '../database/get.php';
+    // We need to use sessions, so you should always start sessions using the below code.
+    session_start();
+    // If the user is not logged in redirect to the login page...
+    if (!isset($_SESSION['loggedin'])) {
+        header('Location: index.html');
+        exit;
+    }
 
-  // require 'configuration.php';
-  // require 'php-con/Database.php';
-  // var_dump("server" . SERVERNAME);
-  // var_dump(Database::getCategories(2));
-  $currentDate = date('l d-m-Y');
+
+    $user = Get::getUser($_SESSION['id']);
+
+    $currentDate = date('l d-m-Y');
 
 ?>
 <!doctype html>
@@ -75,6 +75,38 @@
                 </form>
             </div>
         </nav>
+    </div>
+
+    
+    
+    <div class="container-fluid p-0">
+        <div id="formRow" class="row justify-content-center">
+            <div class="col-md-7 greyBg mt-5 p-4 whiteText">
+                <h5>Profile</h5>
+                <div class="form-group mt-4">
+                    <!-- name / text -->
+                    <label for="username">Username:</label>
+                    <p class="form-control" id="username"><?php echo $user['username']?></p>
+                </div>
+                <div class="form-group ">
+                    <!-- name / text -->
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" readonly value="<?php echo $user['password']?>">
+                </div>
+                <div class="form-group">
+                    <!-- name / text -->
+                    <label for="adddate">User since:</label>
+                    <p class="form-control" id="adddate"><?php echo $user['adddate']?></p>
+                </div>
+                <div class="mt-4">
+                    <form action="editProfile.php" method="POST">
+                        <button class="btn btn-danger my-sm-2 float-right" name="btn" value="<?php echo  $user['user_uuid']?>">Change Password</button>
+                    </form>
+                </div>
+
+                
+            </div>
+        </div>
     </div>
 
 
