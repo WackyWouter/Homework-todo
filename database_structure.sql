@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: shareddb1c.hosting.stackcp.net
--- Gegenereerd op: 06 sep 2020 om 17:12
+-- Gegenereerd op: 07 sep 2020 om 20:29
 -- Serverversie: 10.2.33-MariaDB-log
 -- PHP-versie: 7.1.33
 
@@ -59,6 +59,17 @@ CREATE TABLE `homework` (
 -- --------------------------------------------------------
 
 --
+-- Tabelstructuur voor tabel `security_questions`
+--
+
+CREATE TABLE `security_questions` (
+  `id` int(11) NOT NULL,
+  `security_question` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `users`
 --
 
@@ -66,6 +77,8 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) COLLATE ascii_bin NOT NULL,
   `password` varbinary(255) NOT NULL,
+  `security_question` varbinary(255) NOT NULL,
+  `security_answer` varbinary(255) NOT NULL,
   `user_uuid` varchar(255) COLLATE ascii_bin NOT NULL,
   `adddate` datetime NOT NULL DEFAULT current_timestamp(),
   `moddate` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -91,6 +104,12 @@ ALTER TABLE `homework`
   ADD KEY `category_id` (`category_id`) USING BTREE;
 
 --
+-- Indexen voor tabel `security_questions`
+--
+ALTER TABLE `security_questions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexen voor tabel `users`
 --
 ALTER TABLE `users`
@@ -113,6 +132,12 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT voor een tabel `homework`
 --
 ALTER TABLE `homework`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT voor een tabel `security_questions`
+--
+ALTER TABLE `security_questions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

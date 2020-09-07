@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: shareddb1c.hosting.stackcp.net
--- Gegenereerd op: 06 sep 2020 om 17:11
+-- Gegenereerd op: 07 sep 2020 om 20:29
 -- Serverversie: 10.2.33-MariaDB-log
 -- PHP-versie: 7.1.33
 
@@ -91,6 +91,35 @@ INSERT INTO `homework` (`id`, `user_id`, `name`, `description`, `comments`, `due
 -- --------------------------------------------------------
 
 --
+-- Tabelstructuur voor tabel `security_questions`
+--
+
+CREATE TABLE `security_questions` (
+  `id` int(11) NOT NULL,
+  `security_question` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `security_questions`
+--
+
+INSERT INTO `security_questions` (`id`, `security_question`) VALUES
+(1, 'What was the house number and street name you lived in as a child?'),
+(2, 'What were the last four digits of your childhood telephone number?'),
+(3, 'What primary school did you attend?'),
+(4, 'In what town or city was your first full time job?'),
+(5, 'In what town or city did you meet your spouse or partner?'),
+(6, 'What is the middle name of your oldest child?'),
+(7, 'What are the last five digits of your driver\'s license number?'),
+(8, 'What is your grandmother\'s (on your mother\'s side) maiden name?'),
+(9, 'What is your spouse or partner\'s mother\'s maiden name?'),
+(10, 'In what town or city did your parents meet?'),
+(11, 'What time of the day were you born? (hh:mm)'),
+(12, 'What time of the day was your first child born? (hh:mm)');
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `users`
 --
 
@@ -98,6 +127,8 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) COLLATE ascii_bin NOT NULL,
   `password` varbinary(255) NOT NULL,
+  `security_question` varbinary(255) NOT NULL,
+  `security_answer` varbinary(255) NOT NULL,
   `user_uuid` varchar(255) COLLATE ascii_bin NOT NULL,
   `adddate` datetime NOT NULL DEFAULT current_timestamp(),
   `moddate` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -107,8 +138,9 @@ CREATE TABLE `users` (
 -- Gegevens worden geëxporteerd voor tabel `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `user_uuid`, `adddate`, `moddate`) VALUES
-(3, 'WackyWouter', 0x1ca81e18b70dbb9a462b48a3305caa07, '1c14aefc-4f03-422b-bba5-2d02b8ee3580', '2020-05-10 20:51:04', '2020-05-10 20:51:04');
+INSERT INTO `users` (`id`, `username`, `password`, `security_question`, `security_answer`, `user_uuid`, `adddate`, `moddate`) VALUES
+(3, 'WackyWouter', 0x1ca81e18b70dbb9a462b48a3305caa07, 0x2feaeeba24b57ba224486eb95ea67de295866902f436eb8fa549d8104284b29650b01ced9e43396b681d89fa6f025e83f5b91ed6c1158992e352fd3d136393681afeee0a9109ea3bf42ad57b5b16343c, 0x57f6bf7802dbac5a9530ecb6a04fd8e8, '1c14aefc-4f03-422b-bba5-2d02b8ee3580', '2020-05-10 20:51:04', '2020-09-07 19:56:10'),
+(7, 'Eloise', 0x937c37189e432f7e948e6c16f088c11d, 0x9a4685463d884e07f0e9fc9e500f82cdfbb8eb4fa3768bec86c3dbfe8215f2fa8d5d150cfdea60437ea44909abf4738bd49d22c7da45a078af0ba7d7ccda13b2, 0x6943772166111aead7731f8116996457, '3ac0def4-65bd-4ae8-afa8-485a043df9d5', '2020-09-07 20:26:10', '2020-09-07 20:26:10');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -128,6 +160,12 @@ ALTER TABLE `homework`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_user_id` (`user_id`),
   ADD KEY `category_id` (`category_id`) USING BTREE;
+
+--
+-- Indexen voor tabel `security_questions`
+--
+ALTER TABLE `security_questions`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexen voor tabel `users`
@@ -155,10 +193,16 @@ ALTER TABLE `homework`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
+-- AUTO_INCREMENT voor een tabel `security_questions`
+--
+ALTER TABLE `security_questions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
