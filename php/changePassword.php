@@ -1,11 +1,30 @@
 <?php
     require '../database/get.php';
+    require '../database/edit.php';
+    require '../Usefull-PHP/up_check.php';
     // We need to use sessions, so you should always start sessions using the below code.
     session_start();
     // If the user is not logged in redirect to the login page...
     if (!isset($_SESSION['loggedin'])) {
         header('Location: index.html');
         exit;
+    }
+
+    $error = '';
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        if(isset($_POST['changePasword'])){
+            if(isset($_POST['oldPassword']) && isset($_POST["newPassword1"]) && isset($_POST["newPassword2"])){
+                if(up_check::checkPassword($_SESSION['id'], $_POST['oldPassword'])){
+                    if(up_check::checkPasswordMatch($_POST['newPassword1'], $_POST['newPassword2'])){
+                        if(up_check::passwordStrength($_POST['newPassword1'])){
+                            if(Edit::updatePassword($_SESSION['id'], $_POST['newPassword1'])){
+                                header('Location: profile.php');
+                            }else{$error = "Something went wrong please contact the website owner!";}
+                        }else {$error = "password doesn't meet strength requirements!";}
+                    }else {$error = "The new passwords dont match!";}
+                }else{$error = "Current Password incorrect!";}
+            }else{$error ="Not all fields were filled in!";}
+        }
     }
 
     $currentDate = date('l d-m-Y');
@@ -32,8 +51,7 @@
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg navbar-dark greyBg justify-content-between">
             <a class="navbar-brand" href="home.php">Homework TODO</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -80,28 +98,38 @@
         <div id="formRow" class="row justify-content-center">
             <div class="col-md-7 greyBg mt-5 p-4 whiteText">
                 <h5>Change Password</h5>
-                <div class="form-group mt-4">
-                    <!-- name / text -->
-                    <label for="oldPassword">Username:</label>
-                    <input type="password" class="form-control" id="oldPassword">
-                </div>
-                <div class="form-group ">
-                    <!-- name / text -->
-                    <label for="newPassword1">Password:</label>
-                    <input type="password" class="form-control" id="newPassword1">
-                </div>
-                <div class="form-group">
-                    <!-- name / text -->
-                    <label for="newPassword2">User since:</label>
-                    <input type="password" class="form-control" id="newPassword2">
-                </div>
-                <div class="mt-4">
-                    <form action="editProfile.php" method="POST">
-                        <button class="btn btn-danger my-sm-2 float-right" name="btn" value="<?php echo  $user['user_uuid']?>">Confirm Password</button>
-                    </form>
-                </div>
-
-                
+                <form action="" method="POST">
+                    <div class="form-group mt-4">
+                        <label for="oldPassword">Current Password</label>
+                        <?php if(isset($_POST['oldPassword'])) : ?>
+                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" value="<?php echo $_POST['oldPassword'] ?>" required>
+                        <?php else : ?>
+                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+                        <?php endif ?>
+                    </div>
+                    <div class="form-group ">
+                        <label for="newPassword1">New Password</label>
+                        <?php if(isset($_POST['newPassword1'])) : ?>
+                            <input type="password" class="form-control" id="newPassword1" name="newPassword1" value="<?php echo $_POST['newPassword1'] ?>" required>
+                        <?php else : ?>
+                            <input type="password" class="form-control" id="newPassword1" name="newPassword1" required>
+                        <?php endif ?>
+                    </div>
+                    <p class="smallText">Password needs to be at least 8 or more characters and it has to have at least one number and one capital letter.</p>
+                    <div class="form-group">
+                        <label for="newPassword2">Confirm New Password</label>
+                        <?php if(isset($_POST['newPassword2'])) : ?>
+                            <input type="password" class="form-control" id="newPassword2" name="newPassword2" value="<?php echo $_POST['newPassword2'] ?>" required>
+                        <?php else : ?>
+                            <input type="password" class="form-control" id="newPassword2" name="newPassword2" required>
+                        <?php endif ?>
+                    </div>
+                    
+                    <?php echo "<p class='neonRed'>$error</p>"; ?>
+                    <div class="mt-4">
+                        <button class="btn btn-danger my-sm-2 float-right" name="changePasword" >Confirm Password Change</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

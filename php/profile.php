@@ -7,10 +7,7 @@
         header('Location: index.html');
         exit;
     }
-
-
     $user = Get::getUser($_SESSION['id']);
-
     $currentDate = date('l d-m-Y');
 
 ?>
@@ -85,22 +82,22 @@
                 <h5>Profile</h5>
                 <div class="form-group mt-4">
                     <!-- name / text -->
-                    <label for="username">Username:</label>
+                    <label for="username">Username</label>
                     <p class="form-control" id="username"><?php echo $user['username']?></p>
                 </div>
                 <div class="form-group ">
                     <!-- name / text -->
-                    <label for="password">Password:</label>
+                    <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" readonly value="<?php echo $user['password']?>">
                 </div>
                 <div class="form-group">
                     <!-- name / text -->
-                    <label for="adddate">User since:</label>
-                    <p class="form-control" id="adddate"><?php echo $user['adddate']?></p>
+                    <label for="adddate">User since</label>
+                    <p class="form-control" id="adddate"><?php echo date('d-m-Y H:i:s', strtotime($user['adddate']));?></p>
                 </div>
                 <div class="mt-4">
-                    <form action="editProfile.php" method="POST">
-                        <button class="btn btn-danger my-sm-2 float-right" name="btn" value="<?php echo  $user['user_uuid']?>">Change Password</button>
+                    <form action="changePassword.php" method="POST">
+                        <button class="btn btn-danger my-sm-2 float-right" name="btn">Change Password</button>
                     </form>
                 </div>
 

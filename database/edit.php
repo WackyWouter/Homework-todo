@@ -31,6 +31,22 @@ class Edit{
 
     }
 
+    public static function updatePassword($id, $password){
+        if(!isset($id) || !isset($password)){
+            die("Error: password or id unset");
+            //TODO make this go to log function
+        }
+        if($stmt = up_database::prepare("UPDATE users SET password = AES_ENCRYPT(?, UNHEX(SHA2(?, 512))) WHERE user_uuid = ?")){
+            $stmt->bind_param("sss", $password, $id, $id);
+            $stmt->execute();
+            up_database::logError($stmt);
+            $stmt->close();
+            return true;
+        }
+        return false;
+    }
+
+
     public static function doneHomework($id, $done = 1){
         if(!isset($id)){
             die("Error: " . "id unset");
