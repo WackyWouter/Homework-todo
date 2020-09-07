@@ -87,7 +87,7 @@ class Create{
 
         $uuid4 = up_crypt::uuid4();
 
-        $stmt = up_database::prepare("INSERT INTO user(username, password, user_uuid) VALUES(?, (AES_ENCRYPT(?, UNHEX(SHA2(?, 512))), ?)");
+        $stmt = up_database::prepare("INSERT INTO users(username, password, user_uuid) VALUES(?, (AES_ENCRYPT(?, UNHEX(SHA2(?, 512))), ?)");
         $stmt->bind_param('ssss', $user['username'], $user['password'], $uuid4, $uuid4 );
         $stmt->execute();
         $stmt->close();
