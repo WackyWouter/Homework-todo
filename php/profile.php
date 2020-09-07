@@ -74,30 +74,36 @@
         </nav>
     </div>
 
-    
-    
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
             <div class="col-md-7 greyBg mt-5 p-4 whiteText">
                 <h5>Profile</h5>
                 <div class="form-group mt-4">
-                    <!-- name / text -->
                     <label for="username">Username</label>
                     <p class="form-control" id="username"><?php echo $user['username']?></p>
                 </div>
                 <div class="form-group ">
-                    <!-- name / text -->
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" readonly value="<?php echo $user['password']?>">
                 </div>
+                <div class="form-group ">
+                    <label for="securityQuestion">Security Question</label>
+                    <input type="text" class="form-control" id="securityQuestion" readonly value="<?php echo $user['securityQuestion']?>">
+                </div>
+                <div class="form-group ">
+                    <label for="securityAnswer">Security Answer</label>
+                    <input type="text" class="form-control" id="password" readonly value="<?php echo $user['securityAnswer']?>">
+                </div>
                 <div class="form-group">
-                    <!-- name / text -->
                     <label for="adddate">User since</label>
                     <p class="form-control" id="adddate"><?php echo date('d-m-Y H:i:s', strtotime($user['adddate']));?></p>
                 </div>
-                <div class="mt-4">
-                    <form action="changePassword.php" method="POST">
-                        <button class="btn btn-danger my-sm-2 float-right" name="btn">Change Password</button>
+                <div class="mt-4 ">
+                    <form class="float-right" action="changePassword.php" method="POST">
+                        <button class="btn btn-danger my-sm-2 " name="btn">Change Password</button>
+                    </form>
+                    <form class="float-right mr-3" action="editProfile.php" method="POST">
+                        <button class="btn btn-danger my-sm-2 " name="btn">Security</button>
                     </form>
                 </div>
 

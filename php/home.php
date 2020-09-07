@@ -208,7 +208,7 @@ $currentDate = date('l d-m-Y');
                                     <th scope="col">Course</th>
                                     <th scope="col">Priority</th>
                                     <th scope="col">Duedate</th>
-                                    <th scope="col">Finished</th>
+                                    <th scope="col">Undo</th>
                                 </tr>
                             </thead>
                             <tbody>

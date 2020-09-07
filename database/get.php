@@ -43,12 +43,16 @@ class Get{
         $username = null;
         $password = null;
         $user_uuid = null;
+        $securityQuestion = null;
+        $securityAnswer = null;
         $adddate = null;
         $user = [];
 
         $stmt = up_database::prepare('SELECT id
                                                 , username
                                                 , AES_DECRYPT(password, UNHEX(SHA2(user_uuid, 512))) 
+                                                , AES_DECRYPT(security_question, UNHEX(SHA2(user_uuid, 512))) 
+                                                , AES_DECRYPT(security_answer, UNHEX(SHA2(user_uuid, 512))) 
                                                 , user_uuid
                                                 , adddate
                                             FROM 
@@ -57,11 +61,11 @@ class Get{
                                                 user_uuid = ?');
         $stmt->bind_param('s', $id);
         $stmt->execute();
-        $stmt->bind_result($id, $username, $password, $user_uuid, $adddate);
+        $stmt->bind_result($id, $username, $password, $securityQuestion, $securityAnswer, $user_uuid, $adddate);
         $stmt->fetch();
         $stmt->close();
         
-        $user = ['id' => $id, 'username' => $username, 'password' => $password, 'user_uuid' => $user_uuid, 'adddate' => $adddate];
+        $user = ['id' => $id, 'username' => $username, 'password' => $password, 'securityQuestion' => $securityQuestion, 'securityAnswer' => $securityAnswer, 'user_uuid' => $user_uuid, 'adddate' => $adddate];
 
         return $user;
     }
@@ -151,6 +155,22 @@ class Get{
         $stmt->close();
 
         return $amount;
+    }
+
+    public static function getSecurityQuestions(){
+        $result = [];
+        $securityQuestion = '';
+        $id = '';
+
+        $stmt = up_database::prepare("SELECT id, security_question FROM security_questions ORDER BY security_question ASC");
+        $stmt->execute();
+        $stmt->bind_result($id, $securityQuestion);
+        while ($stmt->fetch()){
+            $result [$id] = ['id' => $id, 'securityQuestion' => $securityQuestion];
+        }
+        $stmt->close();
+
+        return $result;
     }
 }
 

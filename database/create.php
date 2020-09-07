@@ -75,25 +75,53 @@ class Create{
         return true;
     }
 
-    public static function addUser($user){
-        if(!isset($user->username)){
+    public static function addUser($username, $password, $securityQuestion, $securityAnswer){
+        if(!isset($username)){
             die("Error: " . "username unset");
             //TODO make this go to log function
         }
-        if(!isset($user->password)){
+        if(!isset($password)){
             die("Error: " . "password unset");
+            //TODO make this go to log function
+        }
+        if(!isset($securityQuestion)){
+            die("Error: " . "security question unset");
+            //TODO make this go to log function
+        }
+        if(!isset($securityAnswer)){
+            die("Error: " . "security answer unset");
             //TODO make this go to log function
         }
 
         $uuid4 = up_crypt::uuid4();
 
-        $stmt = up_database::prepare("INSERT INTO users(username, password, user_uuid) VALUES(?, (AES_ENCRYPT(?, UNHEX(SHA2(?, 512))), ?)");
-        $stmt->bind_param('ssss', $user['username'], $user['password'], $uuid4, $uuid4 );
-        $stmt->execute();
-        $stmt->close();
+        if ($stmt = up_database::prepare(
+            "INSERT INTO users(
+                username
+                , password
+                , security_question
+                , security_answer
+                , user_uuid) 
+            VALUES (
+                ?,
+                AES_ENCRYPT(?, UNHEX(SHA2(?, 512))), 
+                AES_ENCRYPT(?, UNHEX(SHA2(?, 512))), 
+                AES_ENCRYPT(?, UNHEX(SHA2(?, 512))), 
+                ?)"))
+            {
+            $stmt->bind_param('ssssssss', $username, $password, $uuid4, $securityQuestion, $uuid4, $securityAnswer, $uuid4, $uuid4 );
+            $stmt->execute();
+            $stmt->close();
 
-        // maybe return the added item
-        return json_encode(['status', 'ok']);
+            session_start();
+            session_regenerate_id();
+            $_SESSION['loggedin'] = TRUE;
+            $_SESSION['name'] = $username;
+            $_SESSION['id'] = $uuid4;
+
+            return true;
+        }
+        return false;
     }
 
 }
