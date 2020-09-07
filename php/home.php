@@ -175,7 +175,7 @@ $currentDate = date('l d-m-Y');
                                         <form action="home.php" method="post">
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
                                             <input type="hidden" name="category" value="<?php echo $chosenCategoryId; ?>" />
-                                            <input class="btn btn-danger" type="submit" name="done" value="done" />
+                                            <input class="btn btn-danger" type="submit" name="done" value="Done" />
                                         </form>
                                     </td>
                                 </tr>
@@ -226,7 +226,7 @@ $currentDate = date('l d-m-Y');
                                         <form action="home.php" method="post">
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
                                             <input type="hidden" name="category" value="<?php echo $chosenCategoryId; ?>" />
-                                            <input class="btn btn-danger" type="submit" name="undone" value="Undone" />
+                                            <input class="btn btn-danger" type="submit" name="undone" value="Undo" />
                                         </form>
                                     </td>
                                 </tr>
