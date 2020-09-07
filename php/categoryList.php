@@ -31,7 +31,7 @@ $currentDate = date('l d-m-Y');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="../img/iconR.png">
-    <title>Home</title>
+    <title>Category List</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -59,7 +59,7 @@ $currentDate = date('l d-m-Y');
                         <a class="nav-link" href="profile.php">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link whiteText" href="categoryList.php">Categories <span
+                        <a class="nav-link whiteText" href="categoryList.php">Categories<span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">

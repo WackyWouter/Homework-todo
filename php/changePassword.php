@@ -43,7 +43,7 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/custom.css">
 
-    <title>Profile</title>
+    <title>Change Password</title>
     <link rel="icon" href="../img/iconR.png">
 </head>
 
@@ -61,11 +61,11 @@
                         <a class="nav-link" href="home.php">Overview</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link whiteText" href="profile.php">Profile <span
+                        <a class="nav-link whiteText" href="profile.php">Profile<span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="categoryList.php">Categories </a>
+                        <a class="nav-link" href="categoryList.php">Categories</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button"

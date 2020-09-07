@@ -44,7 +44,7 @@ $currentDate = date('l d-m-Y');
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/custom.css">
 
-    <title>Homework TODO</title>
+    <title>Edit Category</title>
 </head>
 
 <body>
@@ -65,7 +65,7 @@ $currentDate = date('l d-m-Y');
                         <a class="nav-link" href="profile.php">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link whiteText" href="categoryList.php">Categories <span
+                        <a class="nav-link whiteText" href="categoryList.php">Categories<span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">

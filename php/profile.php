@@ -43,11 +43,11 @@
                         <a class="nav-link" href="home.php">Overview</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link whiteText" href="profile.php">Profile <span
+                        <a class="nav-link whiteText" href="profile.php">Profile<span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="categoryList.php">Categories </a>
+                        <a class="nav-link" href="categoryList.php">Categories</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button"
