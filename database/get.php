@@ -70,6 +70,29 @@ class Get{
         return $user;
     }
 
+    public static function getSecurity($id){
+        $securityQuestion = null;
+        $securityAnswer = null;
+        $security = [];
+
+        $stmt = up_database::prepare('SELECT id
+                                                , AES_DECRYPT(security_question, UNHEX(SHA2(user_uuid, 512))) 
+                                                , AES_DECRYPT(security_answer, UNHEX(SHA2(user_uuid, 512))) 
+                                            FROM 
+                                                users 
+                                            WHERE 
+                                                user_uuid = ?');
+        $stmt->bind_param('s', $id);
+        $stmt->execute();
+        $stmt->bind_result($id, $securityQuestion, $securityAnswer);
+        $stmt->fetch();
+        $stmt->close();
+        
+        $security = ['id' => $id, 'securityQuestion' => $securityQuestion, 'securityAnswer' => $securityAnswer];
+
+        return $security;
+    }
+
     
 
     public static function getHomework($user_id, $category_id, $done){

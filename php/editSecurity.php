@@ -1,5 +1,4 @@
 <?php
-    require '../database/get.php';
     // We need to use sessions, so you should always start sessions using the below code.
     session_start();
     // If the user is not logged in redirect to the login page...
@@ -7,7 +6,8 @@
         header('Location: index.html');
         exit;
     }
-    $user = Get::getUser($_SESSION['id']);
+    $securityQuestions = Get::getSecurityQuestions();
+    $security = get::getSecurity($_SESSION['id']);
     $currentDate = date('l d-m-Y');
 
 ?>
@@ -24,7 +24,7 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/custom.css">
 
-    <title>Profile</title>
+    <title>Security</title>
     <link rel="icon" href="../img/iconR.png">
 </head>
 
@@ -43,20 +43,19 @@
                         <a class="nav-link" href="home.php">Overview</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link whiteText" href="profile.php">Profile<span
-                                class="sr-only">(current)</span></a>
+                        <a class="nav-link whiteText" href="profile.php">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="categoryList.php">Categories</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle whiteText" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             New
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="newCategory.php">Category</a>
-                            <a class="dropdown-item" href="newTask.php">Task</a>
+                            <a class="dropdown-item" href="">Task</a>
                         </div>
                     </li>
                     <li>
@@ -77,38 +76,29 @@
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
             <div class="col-md-7 greyBg mt-5 p-4 whiteText">
-                <h5>Profile</h5>
-                <div class="form-group mt-4">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" value="<?php echo $user['username']?>" readonly>
-                </div>
-                <div class="form-group ">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" readonly value="<?php echo $user['password']?>">
-                </div>
-                <div class="form-group ">
-                    <label for="securityQuestion">Security Question</label>
-                    <input type="text" class="form-control" id="securityQuestion" readonly value="<?php echo $user['securityQuestion']?>">
-                </div>
-                <div class="form-group ">
-                    <label for="securityAnswer">Security Answer</label>
-                    <input type="text" class="form-control" id="password" readonly value="<?php echo $user['securityAnswer']?>">
-                </div>
-                <div class="form-group">
-                    <label for="adddate">User since</label>
-                    <input type="text" class="form-control" id="adddate" readonly value="<?php echo date('d-m-Y H:i:s', strtotime($user['adddate']));?>">
-                </div>
-                <div class="mt-4 ">
-                    <form class="float-right" action="changePassword.php" method="POST">
-                        <button class="btn btn-danger my-sm-2 " name="btn">Change Password</button>
-                    </form>
-                    <form class="float-right mr-3" action="editSecurity.php" method="POST">
-                        <button class="btn btn-danger my-sm-2 " name="btn">Security</button>
-                    </form>
-                </div>
+                <h5>Security</h5>
+                <form action="" method="POST" class="mt-4">
+                    <div class="form-group">
+                        <label for="securityQuestion">Security Question</label>
+                        <select class="form-control" id="securityQuestion" name="securityQuestion" required>
+                            <?php foreach($securityQuestions as $question): ?>
+                                <option value="<?php echo $question['securityQuestion'] ?>"><?php echo $question['securityQuestion'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="securityAnswer">Security Answer</label>
+                        <input type="text" class="form-control" id="securityAnswer" name="securityAnswer" maxlength="250" aria-describedby="securityAnswer"
+                        required>
+                    </div>
+                    <?php echo "<p class='neonRed'>$error</p>"; ?>
+                    <button class="btn btn-danger mt-2 float-right" name="submitBtn" type="submit">Register</button>
+                </form>
             </div>
         </div>
     </div>
+
+
 
 
 
