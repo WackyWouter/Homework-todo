@@ -14,7 +14,7 @@
     if(!isset($_POST['name']) ){
       // TODO check the filled stuff
     }else{
-      if(Create::addHomework($_SESSION['id'], $_POST['category'], $_POST['name'], $_POST['description'], $_POST['duedate'], $_POST['course'], $_POST['priority'])){
+      if(Create::addHomework($_SESSION['id'], $_POST['category'], $_POST['name'], $_POST['description'], $_POST['comments'], $_POST['duedate'], $_POST['course'], $_POST['priority'])){
         header('Location: home.php');
       }else{
         echo "failed";
@@ -102,13 +102,19 @@
                     <div class="form-group">
                         <!-- name / text -->
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" aria-describedby="name"
+                        <input maxlength="50" type="text" class="form-control" id="name" name="name" aria-describedby="name"
                             placeholder="Name" required>
                     </div>
                     <!-- description / text -->
                     <div class="form-group">
                         <label for="description">Description</label>
                         <textarea name="description" class="form-control" id="description" placeholder="description..."
+                            cols="30" wrap="hard" rows="10"></textarea>
+                    </div>
+                    <!-- comments / text -->
+                    <div class="form-group">
+                        <label for="comments">Comments</label>
+                        <textarea name="comments" class="form-control" id="comments" placeholder="comments..."
                             cols="30" wrap="hard" rows="10"></textarea>
                     </div>
                     <!-- category / int -->
