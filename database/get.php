@@ -93,6 +93,31 @@ class Get{
         return $result;
     }
 
+    public static function getTask($user_id, $task_id){
+        $result = [];
+        $id = '';
+        $name = '';
+        $description = '';
+        $comments = '';
+        $duedate = '';
+        $course = '';
+        $priority = '';
+        $done = '';
+        $adddate = '';
+        $moddate = '';
+
+        $stmt = up_database::prepare("SELECT id, name, description, comments, duedate, course, priority, done, adddate, moddate FROM homework WHERE user_id = ? AND id = ?");
+        $stmt->bind_param("si", $user_id, $task_id);
+        $stmt->execute();
+        $stmt->bind_result($id, $name, $description, $comments, $duedate, $course, $priority, $done, $adddate, $moddate);
+        $stmt->fetch();
+        $result = ['id'=>$id, 'name' => $name, 'description' => $description, 'comments' => $comments, 'duedate' => $duedate, 'course' => $course, 'priority' => $priority, 'done' => $done, 'adddate' => $adddate, 'moddate' => $moddate];
+        
+        $stmt->close();
+
+        return $result;
+    }
+
     public static function getCategories($user_id){
         $result = [];
         $name = '';

@@ -154,7 +154,7 @@ $currentDate = date('l d-m-Y');
                                 <?php if (count($todoTasks) != 0): ?>
                                 <?php foreach($todoTasks as $task): ?>
                                 <tr>
-                                    <td class="pl-3 align-middle"><?php echo $task['name']; ?></td>
+                                    <td class="pl-3 align-middle"><a href="detailTask.php?taskId=<?= $task['id'] ?>"><?php echo $task['name']; ?></a></td>
                                     <td class="align-middle table-desc"><?php echo $task['description']; ?></td>
                                     <td class="align-middle"><?php echo $task['course']; ?></td>
                                     <td class="align-middle"><?php echo $task['priority']; ?></td>
@@ -215,7 +215,7 @@ $currentDate = date('l d-m-Y');
                                 <?php if (count($doneTasks) != 0): ?>
                                 <?php foreach($doneTasks as $task): ?>
                                 <tr>
-                                    <td class="pl-3 align-middle"><?php echo $task['name']; ?></td>
+                                    <td class="pl-3 align-middle"><a href="detailTask.php?taskId=<?= $task['id'] ?>"><?php echo $task['name']; ?></a></td>
                                     <td class="align-middle table-desc"><?php echo $task['description']; ?></td>
                                     <td class="align-middle"><?php echo $task['course']; ?></td>
                                     <td class="align-middle"><?php echo $task['priority']; ?></td>

@@ -7,6 +7,14 @@
         header('Location: index.html');
         exit;
     }
+    $task = [];
+    if($_SERVER['REQUEST_METHOD'] == "GET"){
+        if(isset($_GET['taskId']) ){
+            $task = Get::getTask($_SESSION['id'], $_GET['taskId']);
+        }else{
+            header('Location: error.php');
+        }
+    }
     $user = Get::getUser($_SESSION['id']);
     $currentDate = date('l d-m-Y');
 
@@ -24,7 +32,7 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/custom.css">
 
-    <title>Profile</title>
+    <title>Task</title>
     <link rel="icon" href="../img/iconR.png">
 </head>
 
@@ -43,8 +51,7 @@
                         <a class="nav-link" href="home.php">Overview</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link whiteText" href="profile.php">Profile<span
-                                class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="profile.php">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="categoryList.php">Categories</a>
@@ -77,37 +84,53 @@
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
             <div class="col-md-7 greyBg mt-5 p-4 whiteText">
-                <h5>Profile</h5>
+                <h5><?php echo $task['name'] ?></h5>
                 <div class="form-group mt-4">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" value="<?php echo $user['username']?>" readonly>
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" readonly><?php echo $task['description']?></textarea>
                 </div>
                 <div class="form-group ">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" readonly value="<?php echo $user['password']?>">
-                </div>
-                <div class="form-group ">
-                    <label for="securityQuestion">Security Question</label>
-                    <input type="text" class="form-control" id="securityQuestion" readonly value="<?php echo $user['securityQuestion']?>">
-                </div>
-                <div class="form-group ">
-                    <label for="securityAnswer">Security Answer</label>
-                    <input type="text" class="form-control" id="password" readonly value="<?php echo $user['securityAnswer']?>">
+                    <label for="comments">Comments</label>
+                    <textarea class="form-control" id="comments" readonly><?php echo $task['comments']?></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="adddate">User since</label>
-                    <input type="text" class="form-control" id="adddate" readonly value="<?php echo date('d-m-Y H:i:s', strtotime($user['adddate']));?>">
+                    <label for="duedate">Duedate</label>
+                    <p class="form-control" id="duedate"><?php echo date('d-m-Y', strtotime($task['duedate']));?></p>
+                </div>
+                <div class="form-group ">
+                    <label for="course">Course</label>
+                    <input type="text" class="form-control" id="course" readonly value="<?php echo $task['course']?>">
+                </div>
+                <div class="form-group ">
+                    <label for="priority">Priority</label>
+                    <input type="text" class="form-control" id="priority" readonly value="<?php echo $task['priority']?>">
+                </div>
+                <div class="form-group ">
+                    <label for="status">Status</label>
+                    <?php if($task['done']): ?>
+                        <input type="text" class="form-control" id="status" readonly value="Finished">
+                    <?php elseif(!$task['done']): ?>
+                        <input type="text" class="form-control" id="status" readonly value="Still has to be done">
+                    <?php endif; ?>
+                </div>
+                <div class="form-group">
+                    <label for="adddate">Task was made on</label>
+                    <p class="form-control" id="adddate"><?php echo date('d-m-Y H:i:s', strtotime($task['adddate']));?></p>
+                </div>
+                <div class="form-group">
+                    <label for="moddate">Lastest modification was on</label>
+                    <p class="form-control" id="moddate"><?php echo date('d-m-Y H:i:s', strtotime($task['moddate']));?></p>
                 </div>
                 <div class="mt-4 ">
-                    <form class="float-right" action="changePassword.php" method="POST">
-                        <button class="btn btn-danger my-sm-2 " name="btn">Change Password</button>
+                    <form class="float-right" action="editTask.php" method="POST">
+                        <input type="hidden" name="taskId" value="<?php echo $task['id']; ?>" />
+                        <button class="btn btn-danger my-sm-2 " name="btn">Edit Task</button>
                     </form>
-                    <form class="float-right mr-3" action="editProfile.php" method="POST">
-                        <button class="btn btn-danger my-sm-2 " name="btn">Security</button>
+                    <form class="float-right mr-3" action="" method="POST">
+                        <input type="hidden" name="taskId" value="<?php echo $task['id']; ?>" />
+                        <button class="btn btn-danger my-sm-2 " name="btn">Delete</button>
                     </form>
                 </div>
-
-                
             </div>
         </div>
     </div>
