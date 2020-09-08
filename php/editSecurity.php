@@ -1,4 +1,6 @@
 <?php
+    require '../database/get.php';
+    require '../database/edit.php';
     // We need to use sessions, so you should always start sessions using the below code.
     session_start();
     // If the user is not logged in redirect to the login page...
@@ -6,6 +8,18 @@
         header('Location: index.html');
         exit;
     }
+
+    $error = '';
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        if(isset($_POST['submitBtn'])){
+            if(isset($_POST["securityQuestion"]) && isset($_POST["securityAnswer"])){
+                if(Edit::updateSecurity($_SESSION['id'], $_POST['securityQuestion'], $_POST['securityAnswer'])){
+                    header('Location: profile.php');
+                }else{$error = "Something went wrong please contact the website owner!";}
+            }else{$error ="Not all fields were filled in!";}
+        }
+    }
+   
     $securityQuestions = Get::getSecurityQuestions();
     $security = get::getSecurity($_SESSION['id']);
     $currentDate = date('l d-m-Y');
@@ -82,17 +96,22 @@
                         <label for="securityQuestion">Security Question</label>
                         <select class="form-control" id="securityQuestion" name="securityQuestion" required>
                             <?php foreach($securityQuestions as $question): ?>
-                                <option value="<?php echo $question['securityQuestion'] ?>"><?php echo $question['securityQuestion'] ?></option>
+                                <?php if($question['securityQuestion'] === $security['securityQuestion']): ?>
+                                    <option selected value="<?php echo $question['securityQuestion'] ?>"><?php echo $question['securityQuestion'] ?></option>
+                                <?php else: ?>
+                                    <option value="<?php echo $question['securityQuestion'] ?>"><?php echo $question['securityQuestion'] ?></option>
+                                <?php endif; ?>
+                                
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="securityAnswer">Security Answer</label>
                         <input type="text" class="form-control" id="securityAnswer" name="securityAnswer" maxlength="250" aria-describedby="securityAnswer"
-                        required>
+                        required value="<?= $security['securityAnswer'];?>">
                     </div>
                     <?php echo "<p class='neonRed'>$error</p>"; ?>
-                    <button class="btn btn-danger mt-2 float-right" name="submitBtn" type="submit">Register</button>
+                    <button class="btn btn-danger mt-2 float-right" name="submitBtn" type="submit">Confirm</button>
                 </form>
             </div>
         </div>

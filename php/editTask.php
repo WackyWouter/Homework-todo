@@ -1,6 +1,6 @@
 <?php
 
-
+$currentDate = date('l d-m-Y');
 ?>
 <!doctype html>
 <html lang="en">

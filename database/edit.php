@@ -46,6 +46,21 @@ class Edit{
         return false;
     }
 
+    public static function updateSecurity($id, $question, $answer){
+        if(!isset($id) || !isset($question) || !isset($answer)){
+            die("Error: question_id or answer or id unset");
+            //TODO make this go to log function
+        }
+        if($stmt = up_database::prepare("UPDATE users SET security_question = AES_ENCRYPT(?, UNHEX(SHA2(?, 512))), security_answer = AES_ENCRYPT(?, UNHEX(SHA2(?, 512))) WHERE user_uuid = ?")){
+            $stmt->bind_param("sssss", $question, $id, $answer, $id, $id);
+            $stmt->execute();
+            up_database::logError($stmt);
+            $stmt->close();
+            return true;
+        }
+        return false;
+    }
+
 
     public static function doneHomework($id, $done = 1){
         if(!isset($id)){

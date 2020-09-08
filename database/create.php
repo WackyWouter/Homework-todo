@@ -4,7 +4,7 @@
 
 class Create{
 
-    public static function addHomework($user_id, $category_id, $name, $description, $duedate, $course, $priority){
+    public static function addHomework($user_id, $category_id, $name, $description, $comments, $duedate, $course, $priority){
 
         if(!isset($category_id)){
             die("Error: " . "category_id unset");
@@ -16,6 +16,10 @@ class Create{
         }
         if(!isset($name)){
             die("Error: " . "name unset");
+            //TODO make this go to log function
+        }
+        if(!isset($comments)){
+            die("Error: " . "comments unset");
             //TODO make this go to log function
         }
         if(!isset($description)){
@@ -35,8 +39,8 @@ class Create{
             //TODO make this go to log function
         }
 
-        $stmt = up_database::prepare("INSERT INTO homework(user_id, name, description, duedate, course, category_id, priority) VALUES(?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('sssssis', $user_id, $name, $description, $duedate, $course, $category_id, $priority);
+        $stmt = up_database::prepare("INSERT INTO homework(user_id, name, description, comments, duedate, course, category_id, priority) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssssssis', $user_id, $name, $description, $comments, $duedate, $course, $category_id, $priority);
         $stmt->execute();
         $stmt->close();
 
