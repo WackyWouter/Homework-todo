@@ -82,7 +82,7 @@ class Get{
         $priority = '';
 
         $stmt = up_database::prepare("SELECT id, name, description, duedate, course, priority FROM homework WHERE user_id = ? AND category_id = ? AND done = ? ORDER BY duedate ASC");
-        $stmt->bind_param("iii", $user_id, $category_id, $done);
+        $stmt->bind_param("sii", $user_id, $category_id, $done);
         $stmt->execute();
         $stmt->bind_result($id, $name, $description, $duedate, $course, $priority);
         while ($stmt->fetch()){
@@ -101,7 +101,7 @@ class Get{
         $adddate = '';
 
         $stmt = up_database::prepare("SELECT id, name, moddate, adddate FROM category WHERE user_id = ? ORDER BY name ASC");
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("s", $user_id);
         $stmt->execute();
         $stmt->bind_result($id, $name, $moddate, $adddate);
         while ($stmt->fetch()){
@@ -148,7 +148,7 @@ class Get{
                 
         }
         $stmt = up_database::prepare($query);
-        $stmt->bind_param('ii', $user_id, $category_id);
+        $stmt->bind_param('si', $user_id, $category_id);
         $stmt->execute();
         $stmt->bind_result($amount);
         $stmt->fetch();
