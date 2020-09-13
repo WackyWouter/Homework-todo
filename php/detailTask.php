@@ -1,5 +1,6 @@
 <?php
     require '../database/get.php';
+    require '../database/delete.php';
     // We need to use sessions, so you should always start sessions using the below code.
     session_start();
     // If the user is not logged in redirect to the login page...
@@ -11,6 +12,13 @@
     if($_SERVER['REQUEST_METHOD'] == "GET"){
         if(isset($_GET['taskId']) ){
             $task = Get::getTask($_SESSION['id'], $_GET['taskId']);
+        }else{
+            header('Location: error.php');
+        }
+    }else if($_SERVER['REQUEST_METHOD'] == "POST"){
+        if(isset($_POST['taskId']) ){
+            Delete::deleteHomework($_POST['taskId']);
+            header('location: home.php');
         }else{
             header('Location: error.php');
         }

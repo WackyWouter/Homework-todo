@@ -1,6 +1,7 @@
 <?php
   require '../database/get.php';
   require '../database/edit.php';
+  require '../database/delete.php';
 //   require_once __DIR__ . '/_autoload.php';
 
   session_start();
@@ -27,7 +28,10 @@
 		if(isset($_POST['id'])){
 			Edit::doneHomework($_POST['id'], 0);
 		}
-	}
+    }
+    if(isset($_POST['deleteId'])){
+        Delete::deleteHomework($_POST['deleteId']);
+    }
 }
 
 $todoTasks = Get::getHomework($_SESSION['id'],$chosenCategoryId, 0);
@@ -221,8 +225,7 @@ $currentDate = date('l d-m-Y');
                                     </td>
                                     <td class="align-middle">
                                         <form action="home.php" method="post">
-                                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
-                                            <input type="hidden" name="category" value="<?php echo $chosenCategoryId; ?>" />
+                                            <input type="hidden" name="deleteId" value="<?php echo $task['id']; ?>" />
                                             <input class="btn btn-danger" type="submit" name="undone" value="Undo" />
                                         </form>
                                     </td>
