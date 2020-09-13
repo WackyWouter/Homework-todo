@@ -142,10 +142,8 @@ $currentDate = date('l d-m-Y');
                             <thead>
                                 <tr>
                                     <th scope="col" class="pl-3">Name</th>
-                                    <th scope="col">Description</th>
                                     <th scope="col">Course</th>
                                     <th scope="col">Priority</th>
-                                    <th scope="col">Duedate</th>
                                     <th scope="col">Days left</th>
                                     <th scope="col">Done</th>
                                 </tr>
@@ -155,10 +153,8 @@ $currentDate = date('l d-m-Y');
                                 <?php foreach($todoTasks as $task): ?>
                                 <tr>
                                     <td class="pl-3 align-middle"><a href="detailTask.php?taskId=<?= $task['id'] ?>"><?php echo $task['name']; ?></a></td>
-                                    <td class="align-middle table-desc"><?php echo $task['description']; ?></td>
                                     <td class="align-middle"><?php echo $task['course']; ?></td>
                                     <td class="align-middle"><?php echo $task['priority']; ?></td>
-                                    <td class="align-middle"><?php echo $task['duedate']; ?></td>
                                     <td class="align-middle">
                                         <?php 
 							$now = time(); // or your date as well
@@ -204,10 +200,9 @@ $currentDate = date('l d-m-Y');
                             <thead>
                                 <tr>
                                     <th scope="col" class="pl-3">Name</th>
-                                    <th scope="col">Description</th>
                                     <th scope="col">Course</th>
-                                    <th scope="col">Priority</th>
                                     <th scope="col">Duedate</th>
+                                    <th scope="col">Delete</th>
                                     <th scope="col">Undo</th>
                                 </tr>
                             </thead>
@@ -216,10 +211,14 @@ $currentDate = date('l d-m-Y');
                                 <?php foreach($doneTasks as $task): ?>
                                 <tr>
                                     <td class="pl-3 align-middle"><a href="detailTask.php?taskId=<?= $task['id'] ?>"><?php echo $task['name']; ?></a></td>
-                                    <td class="align-middle table-desc"><?php echo $task['description']; ?></td>
                                     <td class="align-middle"><?php echo $task['course']; ?></td>
-                                    <td class="align-middle"><?php echo $task['priority']; ?></td>
                                     <td class="align-middle"><?php echo $task['duedate']; ?></td>
+                                    <td class="align-middle">
+                                        <form action="" method="post">
+                                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
+                                            <input class="btn btn-danger" type="submit" name="delete" value="Delete" />
+                                        </form>
+                                    </td>
                                     <td class="align-middle">
                                         <form action="home.php" method="post">
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
@@ -227,6 +226,7 @@ $currentDate = date('l d-m-Y');
                                             <input class="btn btn-danger" type="submit" name="undone" value="Undo" />
                                         </form>
                                     </td>
+                                    
                                 </tr>
                                 <?php endforeach; ?>
                                 <?php endif; ?>
