@@ -103,7 +103,7 @@
                 </div>
                 <div class="form-group">
                     <label for="duedate">Duedate</label>
-                    <p class="form-control" id="duedate"><?php echo date('d-m-Y', strtotime($task['duedate']));?></p>
+                    <input type="text" class="form-control" id="duedate" readonly value="<?php echo date('d-m-Y', strtotime($task['duedate']));?>">
                 </div>
                 <div class="form-group ">
                     <label for="course">Course</label>
@@ -123,11 +123,11 @@
                 </div>
                 <div class="form-group">
                     <label for="adddate">Task was made on</label>
-                    <p class="form-control" id="adddate"><?php echo date('d-m-Y H:i:s', strtotime($task['adddate']));?></p>
+                    <input type="text" class="form-control" id="adddate" readonly value="<?php echo date('d-m-Y H:i:s', strtotime($task['adddate']));?>">
                 </div>
                 <div class="form-group">
                     <label for="moddate">Lastest modification was on</label>
-                    <p class="form-control" id="moddate"><?php echo date('d-m-Y H:i:s', strtotime($task['moddate']));?></p>
+                    <p class="form-control" id="moddate" readonly value="><?php echo date('d-m-Y H:i:s', strtotime($task['moddate']));?>">
                 </div>
                 <div class="mt-4 ">
                     <form class="float-right" action="editTask.php" method="POST">

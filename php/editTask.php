@@ -1,6 +1,22 @@
 <?php
+    require '../database/get.php';
+    // We need to use sessions, so you should always start sessions using the below code.
+    session_start();
+    // If the user is not logged in redirect to the login page...
+    if (!isset($_SESSION['loggedin'])) {
+        header('Location: index.html');
+        exit;
+    }
+    $task = [];
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        if(isset($_POST['taskId']) ){
+            $task = Get::getTask($_SESSION['id'], $_POST['taskId']);
+        }else{
+            header('Location: error.php');
+        }
+    }
+    $currentDate = date('l d-m-Y');
 
-$currentDate = date('l d-m-Y');
 ?>
 <!doctype html>
 <html lang="en">
@@ -64,7 +80,56 @@ $currentDate = date('l d-m-Y');
         </nav>
     </div>
 
-
+    <div class="container-fluid p-0">
+        <div id="formRow" class="row justify-content-center">
+            <div class="col-md-7 greyBg mt-5 p-4 whiteText">
+                <h5><?php echo $task['name'] ?></h5>
+                <div class="form-group mt-4">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" maxlength="50" id="name" value="<?php echo $task['name']?>">
+                </div>
+                <div class="form-group mt-4">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" ><?php echo $task['description']?></textarea>
+                </div>
+                <div class="form-group ">
+                    <label for="comments">Comments</label>
+                    <textarea class="form-control" id="comments" ><?php echo $task['comments']?></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="duedate">Duedate</label>
+                    <input type="text" class="form-control" id="duedate" value="<?php echo date('d-m-Y', strtotime($task['duedate']));?>">
+                </div>
+                <div class="form-group ">
+                    <label for="course">Course</label>
+                    <input type="text" class="form-control" id="course" value="<?php echo $task['course']?>">
+                </div>
+                <div class="form-group ">
+                    <label for="priority">Priority</label>
+                    <input type="text" class="form-control" id="priority"  value="<?php echo $task['priority']?>">
+                </div>
+                <div class="form-group ">
+                    <label for="status">Status</label>
+                    <?php if($task['done']): ?>
+                        <input type="text" class="form-control" id="status" readonly value="Finished">
+                    <?php elseif(!$task['done']): ?>
+                        <input type="text" class="form-control" id="status" readonly value="Still has to be done">
+                    <?php endif; ?>
+                </div>
+                <div class="form-group">
+                    <label for="adddate">Task was made on</label>
+                    <p class="form-control" id="adddate"><?php echo date('d-m-Y H:i:s', strtotime($task['adddate']));?></p>
+                </div>
+                <div class="form-group">
+                    <label for="moddate">Lastest modification was on</label>
+                    <p class="form-control" id="moddate"><?php echo date('d-m-Y H:i:s', strtotime($task['moddate']));?></p>
+                </div>
+                <div class="mt-4 ">
+                    <button class="btn btn-danger mt-2 float-right" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
