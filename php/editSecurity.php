@@ -21,6 +21,9 @@
     }
    
     $securityQuestions = Get::getSecurityQuestions();
+    if(count($securityQuestions) == 0){
+        // todo do error logging
+    }
     $security = get::getSecurity($_SESSION['id']);
     $currentDate = date('l d-m-Y');
 

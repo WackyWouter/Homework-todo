@@ -19,6 +19,9 @@ class Edit{
         $stmt = up_database::prepare("UPDATE category SET name = ? WHERE id = ?");
         $stmt->bind_param("si", $name, $id);
         $stmt->execute();
+        if($stmt->error != null){
+            // todo do error logging
+        }
         $stmt->close();
     }
 
@@ -41,6 +44,9 @@ class Edit{
             $stmt->execute();
             up_database::logError($stmt);
             $stmt->close();
+            if($stmt->error != null){
+                // todo do error logging
+            }
             return true;
         }
         return false;
@@ -56,6 +62,9 @@ class Edit{
             $stmt->execute();
             up_database::logError($stmt);
             $stmt->close();
+            if($stmt->error != null){
+                // todo do error logging
+            }
             return true;
         }
         return false;
@@ -71,6 +80,9 @@ class Edit{
         $stmt = up_database::prepare("UPDATE homework SET done = ? WHERE id = ?");
         $stmt->bind_param("ii", $done, $id);
         $stmt->execute();
+        if($stmt->error != null){
+            // todo do error logging
+        }
         $stmt->close();
     }
 }

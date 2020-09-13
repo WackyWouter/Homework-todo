@@ -42,6 +42,9 @@ class Create{
         $stmt = up_database::prepare("INSERT INTO homework(user_id, name, description, comments, duedate, course, category_id, priority) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param('ssssssis', $user_id, $name, $description, $comments, $duedate, $course, $category_id, $priority);
         $stmt->execute();
+        if($stmt->error != null){
+            // todo do error logging
+        }
         $stmt->close();
 
         // maybe return the added item
@@ -116,6 +119,9 @@ class Create{
             {
             $stmt->bind_param('ssssssss', $username, $password, $uuid4, $securityQuestion, $uuid4, $securityAnswer, $uuid4, $uuid4 );
             $stmt->execute();
+            if($stmt->error != null){
+                // todo do error logging
+            }
             $stmt->close();
 
             session_start();

@@ -111,6 +111,9 @@ class Get{
         while ($stmt->fetch()){
             $result [] = ['id'=>$id, 'name' => $name, 'description' => $description, 'duedate' => $duedate, 'course' => $course, 'priority' => $priority];
         }
+        if($stmt->error != null){
+            // todo do error logging
+        }
         $stmt->close();
 
         return $result;
@@ -154,6 +157,9 @@ class Get{
         $stmt->bind_result($id, $name, $moddate, $adddate);
         while ($stmt->fetch()){
             $result [$id] = ['id' => $id, 'name' => $name, 'moddate' => $moddate, 'adddate' => $adddate];
+        }
+        if($stmt->error != null){
+            // todo do error logging
         }
         $stmt->close();
 
@@ -200,6 +206,9 @@ class Get{
         $stmt->execute();
         $stmt->bind_result($amount);
         $stmt->fetch();
+        if($stmt->error != null){
+            // todo do error logging
+        }
         $stmt->close();
 
         return $amount;
@@ -215,6 +224,9 @@ class Get{
         $stmt->bind_result($id, $securityQuestion);
         while ($stmt->fetch()){
             $result [$id] = ['id' => $id, 'securityQuestion' => $securityQuestion];
+        }
+        if($stmt->error != null){
+            // todo do error logging
         }
         $stmt->close();
 
