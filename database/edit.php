@@ -3,12 +3,14 @@ require_once '../Usefull-PHP/up_database.php';
 
 class Edit{
 
-    public static function editHomework($id, $homework){
-        if(!isset($id)){
-            die("Error: " . "id unset");
-            //TODO make this go to log function
+    public static function editHomework($id, $name, $description, $comments, $duedate, $course, $priority){
+        $stmt = up_database::prepare("UPDATE homework SET name = ?, description = ?, comments = ?, duedate = ?, course = ?, priority = ? WHERE id = ?");
+        $stmt->bind_param("ssssssi", $name, $description, $comments, $duedate, $course, $priority, $id);
+        $stmt->execute();
+        if($stmt->error != null){
+            // todo do error logging
         }
-        //   ??
+        $stmt->close();
     }
 
     public static function editCategory($id, $name){
