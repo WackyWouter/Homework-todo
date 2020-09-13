@@ -104,8 +104,13 @@ class Get{
         $course = '';
         $priority = '';
 
-        $stmt = up_database::prepare("SELECT id, name, description, duedate, course, priority FROM homework WHERE user_id = ? AND category_id = ? AND done = ? ORDER BY duedate ASC");
-        $stmt->bind_param("sii", $user_id, $category_id, $done);
+        if($category_id != "-9999"){
+            $stmt = up_database::prepare("SELECT id, name, description, duedate, course, priority FROM homework WHERE user_id = ? AND category_id = ? AND done = ? ORDER BY duedate ASC, priority DESC");
+            $stmt->bind_param("sii", $user_id, $category_id, $done);
+        }else {
+            $stmt = up_database::prepare("SELECT id, name, description, duedate, course, priority FROM homework WHERE user_id = ? AND done = ? ORDER BY duedate ASC, priority DESC");
+            $stmt->bind_param("si", $user_id, $done);
+        }
         $stmt->execute();
         $stmt->bind_result($id, $name, $description, $duedate, $course, $priority);
         while ($stmt->fetch()){

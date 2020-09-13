@@ -15,6 +15,7 @@
      die("no categories found");
      // TODO error logging
   }
+  $categories['-9999'] = ["id" => "-9999", "name" => "All"];
 
   $chosenCategoryId = (isset($_POST['category'])) ? $_POST['category'] : key($categories);
 
@@ -161,12 +162,12 @@ $currentDate = date('l d-m-Y');
                                     <td class="align-middle"><?php echo $task['priority']; ?></td>
                                     <td class="align-middle">
                                         <?php 
-							$now = time(); // or your date as well
-							$datediff =  strtotime($task['duedate']) - $now;
+                                            $now = time(); // or your date as well
+                                            $datediff =  strtotime($task['duedate']) - $now;
 
-							$daysleft = round($datediff / (60 * 60 * 24)); 
-							echo $daysleft +1;
-						?>
+                                            $daysleft = round($datediff / (60 * 60 * 24)); 
+                                            echo $daysleft +1;
+                                        ?>
                                     </td>
 
                                     <td class="align-middle">
@@ -219,13 +220,15 @@ $currentDate = date('l d-m-Y');
                                     <td class="align-middle"><?php echo $task['duedate']; ?></td>
                                     <td class="align-middle">
                                         <form action="" method="post">
-                                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
+                                            <input type="hidden" name="deleteId" value="<?php echo $task['id']; ?>" />
+                                            <input type="hidden" name="category" value="<?php echo $chosenCategoryId; ?>" />
                                             <input class="btn btn-danger" type="submit" name="delete" value="Delete" />
                                         </form>
                                     </td>
                                     <td class="align-middle">
                                         <form action="home.php" method="post">
-                                            <input type="hidden" name="deleteId" value="<?php echo $task['id']; ?>" />
+                                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
+                                            <input type="hidden" name="category" value="<?php echo $chosenCategoryId; ?>" />
                                             <input class="btn btn-danger" type="submit" name="undone" value="Undo" />
                                         </form>
                                     </td>
