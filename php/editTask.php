@@ -21,6 +21,12 @@
             header('Location: error.php');
         }
     }
+    $categories = Get::getCategories($_SESSION['id']);
+    if(!isset($categories)){
+       die("no categories found");
+       // TODO error logging
+    }
+    $priorities = ['low', 'medium', 'high'];
     $currentDate = date('l d-m-Y');
 
 ?>
@@ -68,7 +74,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="newCategory.php">Category</a>
-                            <a class="dropdown-item" href="">Task</a>
+                            <a class="dropdown-item" href="newTask.php">Task</a>
                         </div>
                     </li>
                     <li>
@@ -88,33 +94,58 @@
 
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
-            <div class="col-md-7 greyBg mt-5 p-4 whiteText">
+            <div class="col-lg-8 greyBg mt-5 p-4 whiteText">
                 <form action="" method="POST" class="mt-4">
                     <h5><?php echo $task['name'] ?></h5>
-                    <div class="form-group mt-4">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" maxlength="50" name="name" id="name" value="<?php echo $task['name']?>">
+                    <div class="form-row mt-4">
+                        <div class="form-group col-md-9">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" maxlength="50" name="name" id="name" value="<?php echo $task['name']?>">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="duedate">Duedate</label>
+                            <input type="date" class="form-control" name="duedate" id="duedate" value="<?php echo date('Y-m-d', strtotime($task['duedate']));?>">
+                        </div>
                     </div>
-                    <div class="form-group mt-4">
+                    <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" name="description" id="description" ><?php echo $task['description']?></textarea>
+                        <textarea class="form-control textAreaMedium" name="description" id="description" ><?php echo $task['description']?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select  class="form-control" name="category" id="category" class="form-control">
+                            <?php foreach($categories as $category): ?>
+                                <?php if($task['category_id'] === $category['id']): ?>
+                                    <option selected value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
+                                <?php else: ?>
+                                    <option value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-9 ">
+                            <label for="course">Course</label>
+                            <input type="text" class="form-control" name="course" id="course" value="<?php echo $task['course']?>">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="priority">Priority</label>
+                            <select  class="form-control" name="priority" id="priority" class="form-control">
+                                <?php foreach($priorities as $priority): ?>
+                                    <?php if($task['priority'] === $priority): ?>
+                                        <option selected value="<?php echo $priority ?>"><?php echo $priority ?></option>
+                                    <?php else: ?>
+                                        <option value="<?php echo $priority ?>"><?php echo $priority ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group ">
                         <label for="comments">Comments</label>
-                        <textarea class="form-control" name="comments" id="comments" ><?php echo $task['comments']?></textarea>
+                        <textarea class="form-control textAreaMedium" name="comments" id="comments" ><?php echo $task['comments']?></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="duedate">Duedate</label>
-                        <input type="date" class="form-control" name="duedate" id="duedate" value="<?php echo date('Y-m-d', strtotime($task['duedate']));?>">
-                    </div>
-                    <div class="form-group ">
-                        <label for="course">Course</label>
-                        <input type="text" class="form-control" name="course" id="course" value="<?php echo $task['course']?>">
-                    </div>
-                    <div class="form-group ">
-                        <label for="priority">Priority</label>
-                        <input type="text" class="form-control" name="priority" id="priority"  value="<?php echo $task['priority']?>">
-                    </div>
+
                     <div class="mt-4 ">
                         <input type="hidden" name="id" value="<?php echo $task['id']; ?>" />
                         <button class="btn btn-danger mt-2 float-right" name="editTask" type="submit">Save</button>

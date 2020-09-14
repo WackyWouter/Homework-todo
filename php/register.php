@@ -43,7 +43,7 @@
 <body>
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
-            <div class="col-md-7 greyBg mt-5 p-4 whiteText">
+            <div class="col-lg-8 greyBg mt-5 p-4 whiteText">
                 <h5>Register</h5>
                 <form action="" method="POST" class="mt-4">
                     <div class="form-group">
@@ -55,7 +55,7 @@
                         <label for="password1">Password</label>
                         <input type="password" class="form-control" id="password1" name="password1" required>
                     </div>
-                    <p class="smallText">Password needs to be at least 8 or more characters and it has to have at least one number and one capital letter.</p>
+                    <p class="smallText">Password needs to be at least 8 or more characters and it has to have at least one number and one capital letter and must not contain spaces, special characters, or emoji.</p>
                     <div class="form-group">
                         <label for="password2">Confirm Password</label>
                         <input type="password" class="form-control" id="password2" name="password2" required>

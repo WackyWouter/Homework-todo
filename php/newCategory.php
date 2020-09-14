@@ -90,7 +90,7 @@
 
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
-            <div class="col-md-7 greyBg mt-5 p-4 whiteText">
+            <div class="col-lg-8 greyBg mt-5 p-4 whiteText">
                 <h5>New Category</h5>
 
                 <form action="" method="post" class="mt-4">

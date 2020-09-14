@@ -23,6 +23,14 @@
             header('Location: error.php');
         }
     }
+
+    
+   $categories = Get::getCategories($_SESSION['id']);
+   if(!isset($categories)){
+      die("no categories found");
+      // TODO error logging
+   }
+
     $user = Get::getUser($_SESSION['id']);
     $currentDate = date('l d-m-Y');
 
@@ -91,45 +99,67 @@
 
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
-            <div class="col-md-7 greyBg mt-5 p-4 whiteText">
+            <div class="col-lg-8 greyBg mt-5 p-4 whiteText">
                 <h5><?php echo $task['name'] ?></h5>
-                <div class="form-group mt-4">
+                <div class="form-row mt-4">
+                    <div class="form-group col-md-9">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" readonly value="<?php echo $task['name']?>">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="duedate">Duedate</label>
+                        <input type="text" class="form-control" id="duedate" readonly value="<?php echo date('d-m-Y', strtotime($task['duedate']));?>">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" readonly><?php echo $task['description']?></textarea>
+                    <textarea class="form-control textAreaMedium" id="description" readonly><?php echo $task['description']?></textarea>
                 </div>
-                <div class="form-group ">
-                    <label for="comments">Comments</label>
-                    <textarea class="form-control" id="comments" readonly><?php echo $task['comments']?></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="duedate">Duedate</label>
-                    <input type="text" class="form-control" id="duedate" readonly value="<?php echo date('d-m-Y', strtotime($task['duedate']));?>">
-                </div>
-                <div class="form-group ">
-                    <label for="course">Course</label>
-                    <input type="text" class="form-control" id="course" readonly value="<?php echo $task['course']?>">
-                </div>
-                <div class="form-group ">
-                    <label for="priority">Priority</label>
-                    <input type="text" class="form-control" id="priority" readonly value="<?php echo $task['priority']?>">
-                </div>
-                <div class="form-group ">
-                    <label for="status">Status</label>
-                    <?php if($task['done']): ?>
-                        <input type="text" class="form-control" id="status" readonly value="Finished">
-                    <?php elseif(!$task['done']): ?>
-                        <input type="text" class="form-control" id="status" readonly value="Still has to be done">
-                    <?php endif; ?>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="course">Course</label>
+                        <input type="text" class="form-control" id="course" readonly value="<?php echo $task['course']?>">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="priority">Priority</label>
+                        <input type="text" class="form-control" id="priority" readonly value="<?php echo $task['priority']?>">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="adddate">Task was made on</label>
-                    <input type="text" class="form-control" id="adddate" readonly value="<?php echo date('d-m-Y H:i:s', strtotime($task['adddate']));?>">
+                    <label for="category">Category</label>
+                    <select readonly class="form-control" name="category" id="category" class="form-control">
+                        <?php foreach($categories as $category): ?>
+                            <?php if($task['category_id'] === $category['id']): ?>
+                                <option selected value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
+                            <?php else: ?>
+                                <option value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label for="moddate">Lastest modification was on</label>
-                    <p class="form-control" id="moddate" readonly value="><?php echo date('d-m-Y H:i:s', strtotime($task['moddate']));?>">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="status">Status</label>
+                        <?php if($task['done']): ?>
+                            <input type="text" class="form-control" id="status" readonly value="Finished ">
+                        <?php elseif(!$task['done']): ?>
+                            <input type="text" class="form-control" id="status" readonly value="Still has to be done">
+                        <?php endif; ?>
+                    </div>
                 </div>
-                <div class="mt-4 ">
+               
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="adddate">Task was made on</label>
+                        <input type="text" class="form-control" id="adddate" readonly value="<?php echo date('d-m-Y H:i:s', strtotime($task['adddate']));?>">
+                    </div>
+                    <div class="form-group  col-md-6">
+                        <label for="moddate">Lastest modification was on</label>
+                        <p class="form-control" id="moddate" readonly value="><?php echo date('d-m-Y H:i:s', strtotime($task['moddate']));?>">
+                    </div>
+                </div>
+                
+                <div>
                     <form class="float-right" action="editTask.php" method="POST">
                         <input type="hidden" name="taskId" value="<?php echo $task['id']; ?>" />
                         <button class="btn btn-danger my-sm-2 " name="btn">Edit Task</button>

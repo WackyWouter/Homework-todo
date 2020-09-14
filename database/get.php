@@ -131,18 +131,19 @@ class Get{
         $description = '';
         $comments = '';
         $duedate = '';
+        $category_id = '';
         $course = '';
         $priority = '';
         $done = '';
         $adddate = '';
         $moddate = '';
 
-        $stmt = up_database::prepare("SELECT id, name, description, comments, duedate, course, priority, done, adddate, moddate FROM homework WHERE user_id = ? AND id = ?");
+        $stmt = up_database::prepare("SELECT id, name, description, comments, duedate, course, priority, done, adddate, moddate, category_id FROM homework WHERE user_id = ? AND id = ?");
         $stmt->bind_param("si", $user_id, $task_id);
         $stmt->execute();
-        $stmt->bind_result($id, $name, $description, $comments, $duedate, $course, $priority, $done, $adddate, $moddate);
+        $stmt->bind_result($id, $name, $description, $comments, $duedate, $course, $priority, $done, $adddate, $moddate, $category_id);
         $stmt->fetch();
-        $result = ['id'=>$id, 'name' => $name, 'description' => $description, 'comments' => $comments, 'duedate' => $duedate, 'course' => $course, 'priority' => $priority, 'done' => $done, 'adddate' => $adddate, 'moddate' => $moddate];
+        $result = ['id'=>$id, 'name' => $name, 'description' => $description, 'comments' => $comments, 'duedate' => $duedate, 'course' => $course, 'priority' => $priority, 'done' => $done, 'adddate' => $adddate, 'moddate' => $moddate, 'category_id' => $category_id];
         
         $stmt->close();
 

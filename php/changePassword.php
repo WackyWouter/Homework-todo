@@ -96,7 +96,7 @@
     
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
-            <div class="col-md-7 greyBg mt-5 p-4 whiteText">
+            <div class="col-lg-8 greyBg mt-5 p-4 whiteText">
                 <h5>Change Password</h5>
                 <form action="" method="POST">
                     <div class="form-group mt-4">
@@ -115,7 +115,7 @@
                             <input type="password" class="form-control" id="newPassword1" name="newPassword1" required>
                         <?php endif ?>
                     </div>
-                    <p class="smallText">Password needs to be at least 8 or more characters and it has to have at least one number and one capital letter.</p>
+                    <p class="smallText">Password needs to be at least 8 or more characters and it has to have at least one number and one capital letter and must not contain spaces, special characters, or emoji.</p>
                     <div class="form-group">
                         <label for="newPassword2">Confirm New Password</label>
                         <?php if(isset($_POST['newPassword2'])) : ?>

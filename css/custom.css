@@ -114,3 +114,7 @@ a:hover {
     font-size: 80%;
     color: lightgrey;
 }
+
+.textAreaMedium {
+    min-height: 125px !important;
+}

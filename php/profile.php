@@ -76,27 +76,31 @@
 
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
-            <div class="col-md-7 greyBg mt-5 p-4 whiteText">
+            <div class="col-lg-8 greyBg mt-5 p-4 whiteText">
                 <h5>Profile</h5>
-                <div class="form-group mt-4">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" value="<?php echo $user['username']?>" readonly>
-                </div>
-                <div class="form-group ">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" readonly value="<?php echo $user['password']?>">
+                <div class="form-row mt-4">
+                    <div class="form-group col-md-6">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" value="<?php echo $user['username']?>" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" readonly value="<?php echo $user['password']?>">
+                    </div>
                 </div>
                 <div class="form-group ">
                     <label for="securityQuestion">Security Question</label>
                     <input type="text" class="form-control" id="securityQuestion" readonly value="<?php echo $user['securityQuestion']?>">
                 </div>
-                <div class="form-group ">
-                    <label for="securityAnswer">Security Answer</label>
-                    <input type="text" class="form-control" id="password" readonly value="<?php echo $user['securityAnswer']?>">
-                </div>
-                <div class="form-group">
-                    <label for="adddate">User since</label>
-                    <input type="text" class="form-control" id="adddate" readonly value="<?php echo date('d-m-Y H:i:s', strtotime($user['adddate']));?>">
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="securityAnswer">Security Answer</label>
+                        <input type="text" class="form-control" id="password" readonly value="<?php echo $user['securityAnswer']?>">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="adddate">User since</label>
+                        <input type="text" class="form-control" id="adddate" readonly value="<?php echo date('d-m-Y H:i:s', strtotime($user['adddate']));?>">
+                    </div>
                 </div>
                 <div class="mt-4 ">
                     <form class="float-right" action="changePassword.php" method="POST">

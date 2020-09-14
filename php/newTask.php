@@ -96,31 +96,27 @@
 
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
-            <div class="col-md-7 greyBg mt-5 p-4 whiteText">
+            <div class="col-lg-8 greyBg mt-5 p-4 whiteText">
                 <h5>New Task</h5>
                 <form action="" method="POST" class="mt-4">
-                    <div class="form-group">
-                        <!-- name / text -->
-                        <label for="name">Name</label>
-                        <input maxlength="50" type="text" class="form-control" id="name" name="name" aria-describedby="name"
-                            placeholder="Name" required>
+
+                    <div class="form-row mt-4">
+                        <div class="form-group col-md-9">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" maxlength="50" name="name" id="name" required placeholder="Name">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="duedate">Duedate</label>
+                            <input type="date" required class="form-control" name="duedate" id="duedate">
+                        </div>
                     </div>
-                    <!-- description / text -->
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea name="description" class="form-control" id="description" placeholder="description..."
-                            cols="30" wrap="hard" rows="10"></textarea>
+                        <textarea class="form-control textAreaMedium" name="description" id="description" placeholder="Description"></textarea>
                     </div>
-                    <!-- comments / text -->
-                    <div class="form-group">
-                        <label for="comments">Comments</label>
-                        <textarea name="comments" class="form-control" id="comments" placeholder="comments..."
-                            cols="30" wrap="hard" rows="10"></textarea>
-                    </div>
-                    <!-- category / int -->
                     <div class="form-group">
                         <label for="category">Category</label>
-                        <select name="category" id="category" class="form-control">
+                        <select name="category" required id="category" class="form-control">
                             <!-- generate with categories from DB -->
                             <?php foreach($categories as $category): ?>
                             <option value="<?php echo $category['id'];?>">
@@ -129,27 +125,26 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <!-- duedate / datetime -->
-                    <div class="form-group">
-                        <label for="duedate">Duedate</label>
-                        <input type="date" class="form-control" name="duedate" id="duedate" aria-describedby="duedate"
-                            required>
+                    <div class="form-row">
+                        <div class="form-group col-md-9 ">
+                            <label for="course">Course</label>
+                            <input type="text" class="form-control" name="course" id="course" placeholder="IPMEDTH">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <!-- priority / enum -->
+                            <label for="priority">Priority</label>
+                            <select name="priority" required id="priority" class="form-control">
+                                <option value="low">LOW</option>
+                                <option value="medium">MEDIUM</option>
+                                <option value="high">HIGH</option>
+                            </select>
+                        </div>
                     </div>
-                    <!-- course / text -->
-                    <div class="form-group">
-                        <label for="course">Course</label>
-                        <input type="text" class="form-control" id="course" name="course" aria-describedby="course"
-                            placeholder="IPMEDTH">
+                    <div class="form-group ">
+                        <label for="comments">Comments</label>
+                        <textarea class="form-control textAreaMedium" name="comments" id="comments" placeholder="Comments..."></textarea>
                     </div>
-                    <!-- priority / enum -->
-                    <div class="form-group">
-                        <label for="priority">Priority</label>
-                        <select name="priority" id="priority" class="form-control">
-                            <option value="low">LOW</option>
-                            <option value="medium">MEDIUM</option>
-                            <option value="high">HIGH</option>
-                        </select>
-                    </div>
+                    
                     <button class="btn btn-danger mt-2 float-right" type="submit">Submit Task</button>
                 </form>
             </div>
