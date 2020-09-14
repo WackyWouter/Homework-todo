@@ -1,25 +1,25 @@
 <?php
-  require '../database/create.php';
+    require '../database/create.php';
 
-  session_start();
+    session_start();
 
-  if (!isset($_SESSION['loggedin'])) {
-    header('Location: index.html');
-    exit;
-  }
-
-  $error = '';
-  if($_SERVER['REQUEST_METHOD'] == "POST"){
-    if(!isset($_POST['category']) ){
-      $error = "Fill in category!";
-    }else{
-      if(Create::addCategory($_POST['category'], $_SESSION['id'])){
-        header('Location: home.php');
-      }else{
-        header('Location: error.php?error=Unable to create new category.');
-      }
+    if (!isset($_SESSION['loggedin'])) {
+        header('Location: index.html');
+        exit;
     }
-  }
+
+    $error = '';
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        if(!isset($_POST['category']) ){
+            $error = "Fill in category!";
+        }else{
+        if(Create::addCategory($_POST['category'], $_SESSION['id'])){
+            header('Location: home.php');
+        }else{
+            header('Location: error.php?error=Unable to create new category.');
+        }
+        }
+    }
 
   $currentDate = date('l d-m-Y');
 

@@ -1,22 +1,22 @@
 <?php
-  require '../database/get.php';
-  require '../database/edit.php';
-  require '../database/delete.php';
+    require '../database/get.php';
+    require '../database/edit.php';
+    require '../database/delete.php';
 //   require_once __DIR__ . '/_autoload.php';
 
-  session_start();
-  if (!isset($_SESSION['loggedin'])) {
-    header('Location: index.html');
-    exit;
-  }
+    session_start();
+    if (!isset($_SESSION['loggedin'])) {
+        header('Location: index.html');
+        exit;
+    }
 
-  $categories = Get::getCategories($_SESSION['id']);
-  if(!isset($categories)){
-    header('Location: error.php?error=Unable to retrieve categories.');
-  }
-  $categories['-9999'] = ["id" => "-9999", "name" => "All"];
+    $categories = Get::getCategories($_SESSION['id']);
+    if(!isset($categories)){
+        header('Location: error.php?error=Unable to retrieve categories.');
+    }
+    $categories['-9999'] = ["id" => "-9999", "name" => "All"];
 
-  $chosenCategoryId = (isset($_POST['category'])) ? $_POST['category'] : key($categories);
+    $chosenCategoryId = (isset($_POST['category'])) ? $_POST['category'] : key($categories);
 
   if($_SERVER['REQUEST_METHOD'] == "POST"){
 	if(isset($_POST['done'])){
@@ -34,11 +34,11 @@
     }
 }
 
-$todoTasks = Get::getHomework($_SESSION['id'],$chosenCategoryId, 0);
+    $todoTasks = Get::getHomework($_SESSION['id'],$chosenCategoryId, 0);
 
-$doneTasks = Get::getHomework($_SESSION['id'],$chosenCategoryId, 1);
+    $doneTasks = Get::getHomework($_SESSION['id'],$chosenCategoryId, 1);
 
-$currentDate = date('l d-m-Y');
+    $currentDate = date('l d-m-Y');
 ?>
 <!doctype html>
 <html lang="en">

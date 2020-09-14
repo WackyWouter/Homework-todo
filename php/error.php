@@ -1,7 +1,6 @@
 <?php 
 
     $error = "Something went wrong.";
-    var_dump($_GET);
     if(isset($_GET['error'])){
         $error =$_GET['error'];
     }

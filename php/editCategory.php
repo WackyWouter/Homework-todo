@@ -1,31 +1,31 @@
 <?php
-require '../database/get.php';
-require '../database/edit.php';
+    require '../database/get.php';
+    require '../database/edit.php';
 
-session_start();
-if (!isset($_SESSION['loggedin'])) {
-  header('Location: index.html');
-  exit;
-}
-
-$error = '';
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-    if(!isset($_POST['name']) ){
-        $error = "Fill in category!";
-    }else{
-        Edit::editCategory($_POST['id'], $_POST['name'], $_SESSION['id']);
-        header('Location: categoryList.php');
+    session_start();
+    if (!isset($_SESSION['loggedin'])) {
+    header('Location: index.html');
+    exit;
     }
-}
-$category = [];
-if(isset($_GET['id'])){
-    $category =  Get::getCategory($_GET['id'],$_SESSION['id']);
-}
-else{
-    $error = "No category found!";
-}
 
-$currentDate = date('l d-m-Y');
+    $error = '';
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        if(!isset($_POST['name']) ){
+            $error = "Fill in category!";
+        }else{
+            Edit::editCategory($_POST['id'], $_POST['name'], $_SESSION['id']);
+            header('Location: categoryList.php');
+        }
+    }
+    $category = [];
+    if(isset($_GET['id'])){
+        $category =  Get::getCategory($_GET['id'],$_SESSION['id']);
+    }
+    else{
+        $error = "No category found!";
+    }
+
+    $currentDate = date('l d-m-Y');
 
 ?>
 <!doctype html>

@@ -1,26 +1,26 @@
 <?php
-  require '../database/create.php';
-  require '../database/get.php';
+    require '../database/create.php';
+    require '../database/get.php';
 
-  session_start();
-  if (!isset($_SESSION['loggedin'])) {
-    header('Location: index.html');
-    exit;
-  }
-
-  $error = '';
-  if($_SERVER['REQUEST_METHOD'] == "POST"){
-    $error = "Not filled in: ";
-    if(!isset($_POST['name']) || !isset($_POST['duedate']) || !isset($_POST['category']) ||  !isset($_POST['priority'])){
-      $error = "At least on of the required fields is not filled in!";
-    }else{
-      if(Create::addHomework($_SESSION['id'], $_POST['category'], $_POST['name'], $_POST['description'], $_POST['comments'], $_POST['duedate'], $_POST['course'], $_POST['priority'])){
-        header('Location: home.php');
-      }else{
-        header('Location: error.php?error=Unable to create new task.');
-      }
+    session_start();
+    if (!isset($_SESSION['loggedin'])) {
+        header('Location: index.html');
+        exit;
     }
-  }
+
+    $error = '';
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        $error = "Not filled in: ";
+        if(!isset($_POST['name']) || !isset($_POST['duedate']) || !isset($_POST['category']) ||  !isset($_POST['priority'])){
+            $error = "At least on of the required fields is not filled in!";
+        }else{
+            if(Create::addHomework($_SESSION['id'], $_POST['category'], $_POST['name'], $_POST['description'], $_POST['comments'], $_POST['duedate'], $_POST['course'], $_POST['priority'])){
+                header('Location: home.php');
+            }else{
+                header('Location: error.php?error=Unable to create new task.');
+            }
+        }
+    }
 
     $categories = Get::getCategories($_SESSION['id']);
     if(!isset($categories)){

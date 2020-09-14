@@ -4,14 +4,14 @@ require '../database/delete.php';
 
 session_start();
 if (!isset($_SESSION['loggedin'])) {
-  header('Location: index.html');
-  exit;
+    header('Location: index.html');
+    exit;
 }
 
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     if(isset($_POST['delete_id'])){
-      Delete::deleteCategory($_POST['delete_id'], $_SESSION['id']);
+        Delete::deleteCategory($_POST['delete_id'], $_SESSION['id']);
     }
 }
 
