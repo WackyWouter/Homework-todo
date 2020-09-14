@@ -43,7 +43,7 @@ $currentDate = date('l d-m-Y');
 
 <body>
     <div class="container-fluid p-0">
-        <nav class="navbar navbar-expand-lg navbar-dark greyBg justify-content-between">
+        <nav class="navbar navbar-expand-md navbar-dark greyBg justify-content-between">
             <a class="navbar-brand" href="home.php">Homework TODO</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,18 +62,8 @@ $currentDate = date('l d-m-Y');
                         <a class="nav-link whiteText" href="categoryList.php">Categories<span
                                 class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            New
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="newCategory.php">Category</a>
-                            <a class="dropdown-item" href="newTask.php">Task</a>
-                        </div>
-                    </li>
-                    <li>
-
+                    <li class="nav-item ">
+                        <a class="nav-link" href="newTask.php">New Task</a>
                     </li>
                 </ul>
                 <div class="form-inline ">
@@ -114,7 +104,7 @@ $currentDate = date('l d-m-Y');
                             <td class="align-middle">
                                 <form action="categoryList.php" method="post">
                                     <input type="hidden" name="delete_id" value="<?php echo $cat['id']; ?>" />
-                                    <input class="btn btn-danger" type="submit" name="delete" value="Delete" />
+                                    <input class="btn btn-outline-danger" type="submit" name="delete" value="Delete" />
                                 </form>
                             </td>
                         </tr>
@@ -122,6 +112,9 @@ $currentDate = date('l d-m-Y');
                         <?php endif; ?> 
                     </tbody>
                 </table>
+                <form class="float-right" action="newCategory.php" method="get">
+                    <button class="btn btn-danger my-sm-2 ">New Category</button>
+                </form>   
             </div>
         </div>
     </div>

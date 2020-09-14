@@ -49,9 +49,10 @@
 
 <body>
     <div class="container-fluid p-0">
-        <nav class="navbar navbar-expand-lg navbar-dark greyBg justify-content-between">
+        <nav class="navbar navbar-expand-md navbar-dark greyBg justify-content-between">
             <a class="navbar-brand" href="home.php">Homework TODO</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -67,19 +68,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="categoryList.php">Categories</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            New
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="newCategory.php">Category</a>
-                            <a class="dropdown-item" href="newTask.php">Task</a>
-                        </div>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="newTask.php">New Task</a>
                     </li>
-                    <li>
 
-                    </li>
                 </ul>
                 <div class="form-inline ">
                     <p id="currentDate" class="navbar-nav mr-4" style="color: rgba(255,255,255,.75)">
@@ -92,8 +84,8 @@
         </nav>
     </div>
 
-    
-    
+
+
     <div class="container-fluid p-0">
         <div id="formRow" class="row justify-content-center">
             <div class="col-lg-8 greyBg mt-5 p-4 whiteText">
@@ -102,32 +94,37 @@
                     <div class="form-group mt-4">
                         <label for="oldPassword">Current Password</label>
                         <?php if(isset($_POST['oldPassword'])) : ?>
-                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" value="<?php echo $_POST['oldPassword'] ?>" required>
+                        <input type="password" class="form-control" id="oldPassword" name="oldPassword"
+                            value="<?php echo $_POST['oldPassword'] ?>" required>
                         <?php else : ?>
-                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+                        <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
                         <?php endif ?>
                     </div>
                     <div class="form-group ">
                         <label for="newPassword1">New Password</label>
                         <?php if(isset($_POST['newPassword1'])) : ?>
-                            <input type="password" class="form-control" id="newPassword1" name="newPassword1" value="<?php echo $_POST['newPassword1'] ?>" required>
+                        <input type="password" class="form-control" id="newPassword1" name="newPassword1"
+                            value="<?php echo $_POST['newPassword1'] ?>" required>
                         <?php else : ?>
-                            <input type="password" class="form-control" id="newPassword1" name="newPassword1" required>
+                        <input type="password" class="form-control" id="newPassword1" name="newPassword1" required>
                         <?php endif ?>
                     </div>
-                    <p class="smallText">Password needs to be at least 8 or more characters and it has to have at least one number and one capital letter and must not contain spaces, special characters, or emoji.</p>
+                    <p class="smallText">Password needs to be at least 8 or more characters and it has to have at least
+                        one number and one capital letter and must not contain spaces, special characters, or emoji.</p>
                     <div class="form-group">
                         <label for="newPassword2">Confirm New Password</label>
                         <?php if(isset($_POST['newPassword2'])) : ?>
-                            <input type="password" class="form-control" id="newPassword2" name="newPassword2" value="<?php echo $_POST['newPassword2'] ?>" required>
+                        <input type="password" class="form-control" id="newPassword2" name="newPassword2"
+                            value="<?php echo $_POST['newPassword2'] ?>" required>
                         <?php else : ?>
-                            <input type="password" class="form-control" id="newPassword2" name="newPassword2" required>
+                        <input type="password" class="form-control" id="newPassword2" name="newPassword2" required>
                         <?php endif ?>
                     </div>
-                    
+
                     <?php echo "<p class='neonRed'>$error</p>"; ?>
                     <div class="mt-4">
-                        <button class="btn btn-danger my-sm-2 float-right" name="changePasword" >Confirm Password Change</button>
+                        <button class="btn btn-danger my-sm-2 float-right" name="changePasword">Confirm Password
+                            Change</button>
                     </div>
                 </form>
             </div>

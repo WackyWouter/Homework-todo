@@ -51,7 +51,7 @@
 
 <body>
     <div class="container-fluid p-0">
-        <nav class="navbar navbar-expand-lg navbar-dark greyBg justify-content-between">
+        <nav class="navbar navbar-expand-md navbar-dark greyBg justify-content-between">
             <a class="navbar-brand" href="home.php">Homework TODO</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,19 +69,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="categoryList.php">Categories</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle whiteText" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            New
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="newCategory.php">Category</a>
-                            <a class="dropdown-item" href="">Task</a>
-                        </div>
+                    <li class="nav-item ">
+                        <a class="nav-link whiteText" href="newTask.php">New Task<span
+                                class="sr-only">(current)</span></a>
                     </li>
-                    <li>
 
-                    </li>
                 </ul>
                 <div class="form-inline ">
                     <p id="currentDate" class="navbar-nav mr-4" style="color: rgba(255,255,255,.75)">
