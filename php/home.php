@@ -22,16 +22,16 @@
   if($_SERVER['REQUEST_METHOD'] == "POST"){
 	if(isset($_POST['done'])){
 		if(isset($_POST['id'])){
-			Edit::doneHomework($_POST['id']);
+			Edit::doneHomework($_SESSION['id'], $_POST['id']);
 		}
 	}
 	if(isset($_POST['undone'])){
 		if(isset($_POST['id'])){
-			Edit::doneHomework($_POST['id'], 0);
+			Edit::doneHomework($_SESSION['id'], $_POST['id'], 0);
 		}
     }
     if(isset($_POST['deleteId'])){
-        Delete::deleteHomework($_POST['deleteId']);
+        Delete::deleteHomework($_POST['deleteId'], $_SESSION['id']);
     }
 }
 

@@ -172,14 +172,14 @@ class Get{
         return $result;
     }
 
-    public static function getCategory($cat_id){
+    public static function getCategory($cat_id, $user_id){
         $name = '';
         $id = '';
         $moddate = '';
         $adddate = '';
 
-        $stmt = up_database::prepare("SELECT id, name, moddate, adddate FROM category WHERE id = ?");
-        $stmt->bind_param("i", $cat_id);
+        $stmt = up_database::prepare("SELECT id, name, moddate, adddate FROM category WHERE id = ? AND user_id = ?");
+        $stmt->bind_param("is", $cat_id, $user_id);
         $stmt->execute();
         $stmt->bind_result($id, $name, $moddate, $adddate);
         $stmt->fetch();

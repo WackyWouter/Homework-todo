@@ -17,7 +17,7 @@
         }
     }else if($_SERVER['REQUEST_METHOD'] == "POST"){
         if(isset($_POST['taskId']) ){
-            Delete::deleteHomework($_POST['taskId']);
+            Delete::deleteHomework($_POST['taskId'], $_SESSION['id']);
             header('location: home.php');
         }else{
             header('Location: error.php');

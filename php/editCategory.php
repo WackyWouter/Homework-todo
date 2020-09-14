@@ -13,13 +13,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     if(!isset($_POST['name']) ){
         $error = "Fill in category!";
     }else{
-        Edit::editCategory($_POST['id'], $_POST['name']);
+        Edit::editCategory($_POST['id'], $_POST['name'], $_SESSION['id']);
         header('Location: categoryList.php');
     }
 }
 $category = [];
 if(isset($_GET['id'])){
-    $category =  Get::getCategory($_GET['id']);
+    $category =  Get::getCategory($_GET['id'],$_SESSION['id']);
 }
 else{
     die("no id found");

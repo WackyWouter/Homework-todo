@@ -3,9 +3,9 @@ require_once '../Usefull-PHP/up_database.php';
 
 class Edit{
 
-    public static function editHomework($id, $name, $description, $comments, $duedate, $course, $priority){
-        $stmt = up_database::prepare("UPDATE homework SET name = ?, description = ?, comments = ?, duedate = ?, course = ?, priority = ? WHERE id = ?");
-        $stmt->bind_param("ssssssi", $name, $description, $comments, $duedate, $course, $priority, $id);
+    public static function editHomework($userId, $id, $name, $description, $comments, $duedate, $course, $priority){
+        $stmt = up_database::prepare("UPDATE homework SET name = ?, description = ?, comments = ?, duedate = ?, course = ?, priority = ? WHERE id = ? and user_id = ?");
+        $stmt->bind_param("ssssssis", $name, $description, $comments, $duedate, $course, $priority, $id, $userId);
         $stmt->execute();
         if($stmt->error != null){
             // todo do error logging
@@ -13,27 +13,14 @@ class Edit{
         $stmt->close();
     }
 
-    public static function editCategory($id, $name){
-        if(!isset($id) || !isset($name)){
-            die("Error: id or name unset");
-            //TODO make this go to log function
-        }
-        $stmt = up_database::prepare("UPDATE category SET name = ? WHERE id = ?");
-        $stmt->bind_param("si", $name, $id);
+    public static function editCategory($id, $name, $userId){
+        $stmt = up_database::prepare("UPDATE category SET name = ? WHERE id = ? and user_id = ?");
+        $stmt->bind_param("sis", $name, $id, $userId);
         $stmt->execute();
         if($stmt->error != null){
             // todo do error logging
         }
         $stmt->close();
-    }
-
-    public static function editUser($id, $user){
-        if(!isset($id)){
-            die("Error: " . "id unset");
-            //TODO make this go to log function
-        }
-        //   ??
-
     }
 
     public static function updatePassword($id, $password){
@@ -73,14 +60,14 @@ class Edit{
     }
 
 
-    public static function doneHomework($id, $done = 1){
+    public static function doneHomework($userId, $id, $done = 1){
         if(!isset($id)){
             die("Error: " . "id unset");
             //TODO make this go to log function
         }
 
-        $stmt = up_database::prepare("UPDATE homework SET done = ? WHERE id = ?");
-        $stmt->bind_param("ii", $done, $id);
+        $stmt = up_database::prepare("UPDATE homework SET done = ? WHERE id = ? and user_id = ?");
+        $stmt->bind_param("iis", $done, $id, $userId);
         $stmt->execute();
         if($stmt->error != null){
             // todo do error logging

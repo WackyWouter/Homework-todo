@@ -11,7 +11,7 @@ if (!isset($_SESSION['loggedin'])) {
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     if(isset($_POST['delete_id'])){
-      Delete::deleteCategory($_POST['delete_id']);
+      Delete::deleteCategory($_POST['delete_id'], $_SESSION['id']);
     }
 }
 

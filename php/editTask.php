@@ -14,7 +14,7 @@
             $task = Get::getTask($_SESSION['id'], $_POST['taskId']);
         }
         else if(isset($_POST['name']) && isset($_POST['description']) && isset($_POST['comments']) && isset($_POST['duedate']) && isset($_POST['course']) && isset($_POST['priority'])){
-            Edit::editHomework($_POST['id'], $_POST['name'], $_POST['description'], $_POST['comments'], $_POST['duedate'], $_POST['course'], $_POST['priority']);
+            Edit::editHomework($_SESSION['id'], $_POST['id'], $_POST['name'], $_POST['description'], $_POST['comments'], $_POST['duedate'], $_POST['course'], $_POST['priority']);
             header('location: home.php');
         }
         else{
