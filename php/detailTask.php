@@ -127,15 +127,11 @@
                 </div>
                 <div class="form-group">
                     <label for="category">Category</label>
-                    <select readonly class="form-control" name="category" id="category" class="form-control">
-                        <?php foreach($categories as $category): ?>
-                            <?php if($task['category_id'] === $category['id']): ?>
-                                <option selected value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
-                            <?php else: ?>
-                                <option value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </select>
+                    <?php foreach($categories as $category): ?>
+                        <?php if($task['category_id'] === $category['id']): ?>
+                            <input type="text" class="form-control" id="categoryName" readonly value="<?php echo $category['name']?>">
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
