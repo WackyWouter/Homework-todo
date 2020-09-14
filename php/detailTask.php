@@ -24,12 +24,11 @@
         }
     }
 
-    
-   $categories = Get::getCategories($_SESSION['id']);
-   if(!isset($categories)){
-      die("no categories found");
-      // TODO error logging
-   }
+    $error = '';
+    $categories = Get::getCategories($_SESSION['id']);
+    if(!isset($categories)){
+        $error = "No categories found!";
+    }
 
     $user = Get::getUser($_SESSION['id']);
     $currentDate = date('l d-m-Y');
@@ -124,6 +123,7 @@
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
+                <?php echo "<p class='neonRed'>$error</p>"; ?>
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="status">Status</label>

@@ -12,8 +12,7 @@
 
   $categories = Get::getCategories($_SESSION['id']);
   if(!isset($categories)){
-     die("no categories found");
-     // TODO error logging
+    header('Location: error.php?error=Unable to retrieve categories.');
   }
   $categories['-9999'] = ["id" => "-9999", "name" => "All"];
 
@@ -36,16 +35,9 @@
 }
 
 $todoTasks = Get::getHomework($_SESSION['id'],$chosenCategoryId, 0);
-if(!isset($todoTasks)){
-    die("no categories found");
-    // TODO error logging
-}
 
 $doneTasks = Get::getHomework($_SESSION['id'],$chosenCategoryId, 1);
-if(!isset($doneTasks)){
-    die("no categories found");
-    // TODO error logging
-}
+
 $currentDate = date('l d-m-Y');
 ?>
 <!doctype html>

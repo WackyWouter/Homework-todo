@@ -3,10 +3,6 @@ require_once '../Usefull-PHP/up_database.php';
 
 class Get{
     public static function CheckUser($username, $password){
-        if(!isset($username)){
-            die("Error: " . "username unset");
-            //TODO make this go to log function
-        }
 
         if ($stmt = up_database::prepare('SELECT user_uuid
                                                 , AES_DECRYPT(password, UNHEX(SHA2(user_uuid, 512))) 
@@ -117,7 +113,9 @@ class Get{
             $result [] = ['id'=>$id, 'name' => $name, 'description' => $description, 'duedate' => $duedate, 'course' => $course, 'priority' => $priority];
         }
         if($stmt->error != null){
-            // todo do error logging
+            $error = $stmt->error;
+            $stmt->close();
+            header('Location: error.php?error=' . $error);
         }
         $stmt->close();
 
@@ -165,7 +163,9 @@ class Get{
             $result [$id] = ['id' => $id, 'name' => $name, 'moddate' => $moddate, 'adddate' => $adddate];
         }
         if($stmt->error != null){
-            // todo do error logging
+            $error = $stmt->error;
+            $stmt->close();
+            header('Location: error.php?error=' . $error);
         }
         $stmt->close();
 
@@ -203,9 +203,7 @@ class Get{
                 $query ="SELECT  count(c.id) FROM category c LEFT JOIN homework h ON h.category_id = c.id WHERE c.user_id = ? AND c.id = ? AND h.done = 0";
                 break;
             default:
-                die("Error: " . "wrong type");
-                //TODO make this go to log function
-                
+                header('Location: error.php?error=' . "Not a known type of task.");   
         }
         $stmt = up_database::prepare($query);
         $stmt->bind_param('si', $user_id, $category_id);
@@ -213,7 +211,9 @@ class Get{
         $stmt->bind_result($amount);
         $stmt->fetch();
         if($stmt->error != null){
-            // todo do error logging
+            $error = $stmt->error;
+            $stmt->close();
+            header('Location: error.php?error=' . $error);
         }
         $stmt->close();
 
@@ -232,7 +232,9 @@ class Get{
             $result [$id] = ['id' => $id, 'securityQuestion' => $securityQuestion];
         }
         if($stmt->error != null){
-            // todo do error logging
+            $error = $stmt->error;
+            $stmt->close();
+            header('Location: error.php?error=' . $error);
         }
         $stmt->close();
 

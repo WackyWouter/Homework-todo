@@ -7,7 +7,9 @@ class Delete{
         $stmt->bind_param('is', $id, $user_id);
         $stmt->execute();
         if($stmt->error != null){
-            // todo do error logging
+            $error = $stmt->error;
+            $stmt->close();
+            header('Location: error.php?error=' . $error);
         }
         $stmt->close();
 
@@ -18,7 +20,9 @@ class Delete{
         $stmt->bind_param('is', $id, $user_id);
         $stmt->execute();
         if($stmt->error != null){
-            // todo do error logging
+            $error = $stmt->error;
+            $stmt->close();
+            header('Location: error.php?error=' . $error);
         }
         $stmt->close();
 
@@ -30,7 +34,9 @@ class Delete{
     //     $stmt->bind_param('s', $id);
     //     $stmt->execute();
     //     if($stmt->error != null){
-    //         // todo do error logging
+    //         $error = $stmt->error;
+            // $stmt->close();
+            // header('Location: error.php?error=' . $error);
     //     }
     //     $stmt->close();
 

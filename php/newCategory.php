@@ -16,8 +16,7 @@
       if(Create::addCategory($_POST['category'], $_SESSION['id'])){
         header('Location: home.php');
       }else{
-        echo "failed";
-        // TODO error logging
+        header('Location: error.php?error=Unable to create new category.');
       }
     }
   }

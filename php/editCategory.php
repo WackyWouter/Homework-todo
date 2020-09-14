@@ -22,8 +22,7 @@ if(isset($_GET['id'])){
     $category =  Get::getCategory($_GET['id'],$_SESSION['id']);
 }
 else{
-    die("no id found");
-    // TODO error logging
+    $error = "No category found!";
 }
 
 $currentDate = date('l d-m-Y');

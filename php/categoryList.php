@@ -83,7 +83,6 @@ $currentDate = date('l d-m-Y');
                 <table class="table table-dark greyBg table-borderless table-hover mb-2">
                     <thead>
                         <tr>
-                            <!-- TODO make the name clickeble to edit the category -->
                             <th scope="col" class="pl-3">Name</th>
                             <th scope="col">Todo tasks</th>
                             <th scope="col">Done Tasks</th>

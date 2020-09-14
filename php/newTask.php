@@ -11,23 +11,21 @@
   $error = '';
   if($_SERVER['REQUEST_METHOD'] == "POST"){
     $error = "Not filled in: ";
-    if(!isset($_POST['name']) ){
-      // TODO check the filled stuff
+    if(!isset($_POST['name']) || !isset($_POST['duedate']) || !isset($_POST['category']) ||  !isset($_POST['priority'])){
+      $error = "At least on of the required fields is not filled in!";
     }else{
       if(Create::addHomework($_SESSION['id'], $_POST['category'], $_POST['name'], $_POST['description'], $_POST['comments'], $_POST['duedate'], $_POST['course'], $_POST['priority'])){
         header('Location: home.php');
       }else{
-        echo "failed";
-        // TODO error logging
+        header('Location: error.php?error=Unable to create new task.');
       }
     }
   }
 
-   $categories = Get::getCategories($_SESSION['id']);
-   if(!isset($categories)){
-      die("no categories found");
-      // TODO error logging
-   }
+    $categories = Get::getCategories($_SESSION['id']);
+    if(!isset($categories)){
+        header('Location: error.php?error=Unable to retrieve categories.');
+    }
 
    $currentDate = date('l d-m-Y');
 
@@ -108,7 +106,7 @@
                     </div>
                     <div class="form-group">
                         <label for="category">Category</label>
-                        <select name="category" required id="category" class="form-control">
+                        <select required name="category" required id="category" class="form-control">
                             <!-- generate with categories from DB -->
                             <?php foreach($categories as $category): ?>
                             <option value="<?php echo $category['id'];?>">
@@ -125,7 +123,7 @@
                         <div class="form-group col-md-3">
                             <!-- priority / enum -->
                             <label for="priority">Priority</label>
-                            <select name="priority" required id="priority" class="form-control">
+                            <select required name="priority" required id="priority" class="form-control">
                                 <option value="low">LOW</option>
                                 <option value="medium">MEDIUM</option>
                                 <option value="high">HIGH</option>
@@ -136,7 +134,7 @@
                         <label for="comments">Comments</label>
                         <textarea class="form-control textAreaMedium" name="comments" id="comments" placeholder="Comments..."></textarea>
                     </div>
-                    
+                    <?php echo "<p class='neonRed'>$error</p>"; ?>
                     <button class="btn btn-danger mt-2 float-right" type="submit">Submit Task</button>
                 </form>
             </div>

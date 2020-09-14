@@ -22,7 +22,7 @@
    
     $securityQuestions = Get::getSecurityQuestions();
     if(count($securityQuestions) == 0){
-        // todo do error logging
+        header('Location: error.php?error=Unable to retrieve the security questions.');
     }
     $security = get::getSecurity($_SESSION['id']);
     $currentDate = date('l d-m-Y');

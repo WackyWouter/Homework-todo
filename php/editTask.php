@@ -23,8 +23,7 @@
     }
     $categories = Get::getCategories($_SESSION['id']);
     if(!isset($categories)){
-       die("no categories found");
-       // TODO error logging
+        header('Location: error.php?error=Unable to retrieve categories.');
     }
     $priorities = ['low', 'medium', 'high'];
     $currentDate = date('l d-m-Y');
