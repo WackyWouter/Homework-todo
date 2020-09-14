@@ -87,7 +87,7 @@
         </nav>
     </div>
 
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0 mb-5">
         <div id="formRow" class="row justify-content-center">
             <div class="col-lg-8 greyBg mt-5 p-4 whiteText">
                 <h5><?php echo $task['name'] ?></h5>
@@ -160,6 +160,15 @@
         </div>
     </div>
 
+    <footer class="footer">
+      <div class="container">
+          <div class="row align-items-center">
+              <div class="col-sm-12  text-center">
+                <span class="smallText align-self-center ">This website was made and is owned by Wouter Bosch. You can reach him on wfcboschzakelijk@gmail.com</span>
+              </div>
+          </div>        
+      </div>
+    </footer>
 
 
     <!-- Optional JavaScript -->

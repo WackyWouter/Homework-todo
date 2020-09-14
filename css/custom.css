@@ -8,6 +8,9 @@ body {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .blackBg {
@@ -49,6 +52,8 @@ hr {
 }
 
 .box {
+    width: 400px;
+    border-radius: 0.3rem;
     padding: 20px;
     background-color: #f5f5f5;
     position: absolute;
@@ -125,4 +130,22 @@ a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.footer {
+    margin-top: auto;
+    height: 80px;
+    background-color: #2c2f31;
+}
+
+.footer,
+.footer>.container,
+.footer>.container>.row {
+    height: 80px;
+}
+
+@media only screen and (max-width: 450px) {
+    .box {
+        width: 100%;
+    }
 }

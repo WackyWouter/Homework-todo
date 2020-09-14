@@ -42,7 +42,7 @@
 </head>
 
 <body>
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0 mb-5">
         <nav class="navbar navbar-expand-md navbar-dark greyBg justify-content-between">
             <a class="navbar-brand" href="home.php">Homework TODO</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
@@ -97,6 +97,16 @@
             </div>
         </div>
     </div>
+
+    <footer class="footer">
+      <div class="container">
+          <div class="row align-items-center">
+              <div class="col-sm-12  text-center">
+                <span class="smallText align-self-center ">This website was made and is owned by Wouter Bosch. You can reach him on wfcboschzakelijk@gmail.com</span>
+              </div>
+          </div>        
+      </div>
+    </footer>
 
 
 
